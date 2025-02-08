@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 10px;
+}
+
+.svg-container-wrapper {
+  width: 69%;
+}
+
+/* Responsive Design for smaller screens */
+@media screen and (max-width: 1000px) {
+  .container {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .svg-container-wrapper {
+    width: 100%;
+    height: auto;
+  }
+}

@@ -1,0 +1,89 @@
+/* Container styling for the input section */
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: rgb(251, 232, 232);
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 100%;
+  width: 29%;
+  border: solid black 1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-section input[type="text"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
+.input-section select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.build-buttons {
+  background-color: #0e695a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+.build-buttons:hover {
+  background-color: #0c573e;
+}
+
+.tree-type-options p {
+  text-align: center;
+  color: black;
+  border: none;
+  padding: 1px;
+  font-weight: bolder;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.3s;
+}
+
+.tree-type-options p:hover {
+  color: red;
+}
+
+/* Slider styling */
+.input-section label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.input-section input[type="range"] {
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Add some spacing between the slider and text */
+.input-section span {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .input-section {
+    width: 98%;
+  }
+  .tree-type-options {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
