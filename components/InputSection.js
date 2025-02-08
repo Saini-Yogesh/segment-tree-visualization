@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/InputSection.css";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import styles
 
 export default function InputSection({
   onBuildTree,
@@ -7,6 +9,7 @@ export default function InputSection({
   onRangeQuery,
   onRangeUpdate,
 }) {
+  const [sizeOfArray, setSizeOfArray] = useState(0);
   const [arrayInput, setArrayInput] = useState("1, 2, 3, 4, 5");
   const [treeType, setTreeType] = useState("sum");
   const [speed, setSpeed] = useState(800);
@@ -32,19 +35,58 @@ export default function InputSection({
       .split(/[\s,]+/)
       .map((num) => parseInt(num.trim()))
       .filter((num) => !isNaN(num));
+
+    if (array.length === 0) {
+      toast.error("Please enter a valid array to build the tree!");
+      return;
+    }
+
+    setSizeOfArray(array.length);
     onBuildTree(array, treeType, speed);
+    // toast.success("Tree built successfully!");
+  };
+
+  const checkInRangeOrnot = (rangeStart, rangeEnd) => {
+    if (
+      rangeStart < 0 ||
+      rangeStart >= sizeOfArray ||
+      rangeStart >= rangeEnd ||
+      rangeEnd < 0 ||
+      rangeEnd >= sizeOfArray
+    ) {
+      return false;
+    }
+    return true;
   };
 
   const handleUpdateIndex = () => {
+    if (index < 0 || index >= sizeOfArray) {
+      toast.error("Invalid index. Please enter a valid index!");
+      return;
+    }
+
     onUpdateIndex(index, value);
+    // toast.success(`Index ${index} updated to ${value}!`);
   };
 
   const handleRangeQuery = () => {
+    if (!checkInRangeOrnot(rangeStart, rangeEnd)) {
+      toast.error("Invalid range for query!");
+      return;
+    }
     onRangeQuery(rangeStart, rangeEnd);
+    // toast.info(
+    //   `ℹ️ Query result displayed for range [${rangeStart}, ${rangeEnd}]`
+    // );
   };
 
   const handleRangeUpdate = () => {
+    if (!checkInRangeOrnot(rangeStart, rangeEnd)) {
+      toast.error("Invalid range for update!");
+      return;
+    }
     onRangeUpdate(rangeStart, rangeEnd, value);
+    // toast.success(`Range [${rangeStart}, ${rangeEnd}] updated to ${value}!`);
   };
 
   useEffect(() => {
@@ -53,6 +95,19 @@ export default function InputSection({
 
   return (
     <div className="input-section">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
       {/* tree-type-options */}
       <span className="tree-type-options">
         <p
