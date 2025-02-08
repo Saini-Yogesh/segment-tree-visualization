@@ -2,7 +2,7 @@
   width: 100%;
   height: 660px;
   border-radius: 10px;
-  border: solid black 1px;
+  border: 1px solid #0e695a;
 }
 
 #my-svg {
