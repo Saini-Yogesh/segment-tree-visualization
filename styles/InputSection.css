@@ -3,13 +3,29 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background-color: rgb(251, 232, 232);
+  background-color: #f9f9f9;
   border-radius: 10px;
   padding: 10px;
   max-width: 100%;
   width: 29%;
-  border: solid black 1px;
+  border: solid #ddd 1px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Enable vertical scrolling */
+  height: 88vh;
+}
+
+/* Optional: Customize the scrollbar appearance */
+.input-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.input-section::-webkit-scrollbar-thumb {
+  background-color: #0e695a;
+  border-radius: 4px;
+}
+
+.input-section::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
 }
 
 .input-section input[type="text"] {
@@ -48,11 +64,14 @@
   color: black;
   border: none;
   padding: 1px;
-  font-weight: bolder;
   font-size: 16px;
   cursor: pointer;
   border-radius: 4px;
   transition: color 0.3s;
+}
+
+.current-tree-type-options {
+  font-weight: 900;
 }
 
 .tree-type-options p:hover {
@@ -78,9 +97,89 @@
   gap: 10px;
 }
 
+input[type="number"],
+input[type="text"],
+button {
+  padding: 10px;
+  /* margin: 5px; */
+  font-size: 14px;
+}
+
+button {
+  cursor: pointer;
+  background-color: #0e695a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #055c47;
+}
+
+/* query section  */
+.query-section label {
+  margin-left: 5px;
+}
+
+.query-section {
+  transition: all 0.3s ease-in-out;
+}
+
+.query-section .query-inputs {
+  padding: 10px;
+  background-color: whitesmoke;
+  border: 1px solid black;
+  border-radius: 4px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.query-toggle {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  color: black;
+  padding: 10px 0px;
+  transition: all 0.3s ease;
+}
+
+.query-toggle:hover {
+  background: rgb(166, 164, 164);
+}
+
+.query-inputs {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.query-inputs input,
+.query-inputs button {
+  margin: 5px;
+}
+
+input[type="range"] {
+  width: 200px;
+  margin: 10px 0;
+}
+
 @media screen and (max-width: 1000px) {
   .input-section {
     width: 98%;
+    height: auto;
   }
   .tree-type-options {
     width: 100%;
