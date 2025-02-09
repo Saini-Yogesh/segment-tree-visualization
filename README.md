@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Segment Tree Visualizer
+
+![image](https://github.com/user-attachments/assets/65c8bab3-897c-47ce-88ec-d348bc350310)
+
+## Introduction
+The Segment Tree Visualizer is a web-based application built using Next.js that provides an interactive way to understand and visualize different types of segment trees. This project showcases efficient data structure operations and dynamic visualizations.
+
+## Features
+- **Segment Tree Types:**
+  - Find Minimum
+  - Find Maximum
+  - Find Sum
+- **User Interaction:**
+  - Update a number by index
+  - Perform range queries (sum, min, max)
+  - Range updates
+- **Visualization Controls:**
+  - Speed control with customizable speeds
+  - Input options for user-defined or default values
+  - Real-time segment tree display with node ranges and values
+- **Color-coded Animations:**
+  - Enhance visualization for node updates and branch traversals
+
+## Project Structure
+```
+segment-tree-visualizer/
+├── src/
+│   ├── app/
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.js
+│   │   └── page.js
+│   ├── components/
+│   │   ├── featuresToWork/
+│   │   │   ├── DownloadButton.js
+│   │   │   └── ZoomButton.js
+│   │   ├── functions/
+│   │   │   └── BuildHierarchy.js
+│   │   ├── ScrollToTopButton/
+│   │   │   ├── arrowUpSolid.svg
+│   │   │   ├── ScrollToTopButton.js
+│   │   │   └── ScrollToTopButtonCSS.css
+│   ├── operations/
+│   │   ├── HandleRangeQuery.js
+│   │   ├── HandleRangeUpdate.js
+│   │   └── HandleUpdateIndex.js
+│   ├── styles/
+│   │   ├── InputSection.css
+│   │   ├── SegmentTreeD3.css
+│   │   └── TreeVisualizer.css
+│   ├── utils/
+│   │   ├── segmentTreeUtils.js
+│   │   ├── InputSection.js
+│   │   ├── SegmentTreeD3.js
+│   │   └── TreeVisualizer.js
+├── .gitignore
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+└── README.md
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js (v14 or higher)
 
+### Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone https://github.com/your-username/segment-tree-visualizer.git
+
+# Navigate to the project directory
+cd segment-tree-visualizer
+
+# Install dependencies
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running the Application
+```bash
+npm run dev
+```
+Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Usage
+1. **Choose Segment Tree Type:** Select the minimum, maximum, or sum from find.
+2. **Provide Input:** Enter custom array values or use default ones.
+3. **Perform Queries:** Execute range queries and updates.
+4. **Adjust Speed:** Control the visualization speed.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies Used
+- **Next.js:** Framework for server-rendered React applications
+- **JavaScript:** Logic implementation for segment tree operations
 
-## Learn More
+## Contributing
+Contributions are welcome! Please follow these steps:
+1. Fork the repository.
+2. Create a new branch.
+3. Make your changes.
+4. Submit a pull request.
 
-To learn more about Next.js, take a look at the following resources:
+## Contact
+For any queries, feel free to reach out:
+- **Email:** [yogesh.saini4002@gmail.com](mailto:yogesh.saini4002@gmail.com)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
