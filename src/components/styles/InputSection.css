@@ -11,21 +11,16 @@
   border: solid #ddd 1px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: auto; /* Enable vertical scrolling */
-  height: 88vh;
+  height: 91vh;
 }
 
 /* Optional: Customize the scrollbar appearance */
 .input-section::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 .input-section::-webkit-scrollbar-thumb {
   background-color: #0e695a;
-  border-radius: 4px;
-}
-
-.input-section::-webkit-scrollbar-track {
-  background-color: #e0e0e0;
 }
 
 .input-section input[type="text"] {
@@ -68,6 +63,7 @@
   cursor: pointer;
   border-radius: 4px;
   transition: color 0.3s;
+  margin-top: -10px;
 }
 
 .current-tree-type-options {
@@ -101,7 +97,6 @@ input[type="number"],
 input[type="text"],
 button {
   padding: 10px;
-  /* margin: 5px; */
   font-size: 14px;
 }
 
