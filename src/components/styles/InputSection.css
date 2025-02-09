@@ -178,7 +178,7 @@ input[type="range"] {
 
 @media screen and (max-width: 1000px) {
   .input-section {
-    width: 98%;
+    width: 100%;
     height: auto;
   }
   .tree-type-options {

@@ -1,5 +1,6 @@
+"use client"
 import { useState, useEffect } from "react";
-import "../styles/InputSection.css";
+import "./styles/InputSection.css";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
 

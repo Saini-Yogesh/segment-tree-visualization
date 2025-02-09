@@ -4,6 +4,7 @@
   flex-direction: row;
   gap: 1rem;
   margin: 10px;
+  justify-content: space-evenly;
 }
 
 .svg-container-wrapper {

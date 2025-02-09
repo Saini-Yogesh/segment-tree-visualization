@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import "./ScrollToTopButtonCSS.css";
 import UpArrowIcon from "./arrowUpSolid.svg"
@@ -8,7 +9,7 @@ const ScrollToTopButton = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 200) {
+      if (window.pageYOffset > 50) {
         setIsVisible(true);
       } else {
         setIsVisible(false);

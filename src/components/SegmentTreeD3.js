@@ -1,6 +1,7 @@
+"use client"
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import "../styles/SegmentTreeD3.css";
+import "./styles/SegmentTreeD3.css";
 
 export default function SegmentTreeD3({ data, animationDelay }) {
   const svgRef = useRef();
@@ -49,9 +50,9 @@ export default function SegmentTreeD3({ data, animationDelay }) {
             .linkVertical()
             .x((d) => d.x)
             .y((d) => d.y)({
-            source: { x: source.x, y: source.y },
-            target: { x: target.x, y: target.y },
-          })
+              source: { x: source.x, y: source.y },
+              target: { x: target.x, y: target.y },
+            })
         )
         .attr(
           "class",
