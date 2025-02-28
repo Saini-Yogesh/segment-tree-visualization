@@ -1,6 +1,6 @@
 import { changeNodeAppearance, changePathColor } from "../SegmentTreeD3";
 
-export function handleUpdateIndex(index, newValue, treeData, setTreeData) {
+export function handleUpdateIndex(index, newValue, treeData, setTreeData, speed) {
   return new Promise((resolve) => {  // ✅ Return a promise
     if (!treeData) {
       console.error("Tree data is undefined! Ensure the tree is built before updating.");

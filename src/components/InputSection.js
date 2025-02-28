@@ -26,10 +26,10 @@ export default function InputSection({
     setShowRangeUpdate(queryType === "rangeUpdate" && !showRangeUpdate);
   };
 
-  const [index, setIndex] = useState(""); // For Update Index query
-  const [value, setValue] = useState(""); // For Update Index value
-  const [rangeStart, setRangeStart] = useState(""); // For Range Query and Range Update
-  const [rangeEnd, setRangeEnd] = useState(); // For Range Query and Range Update
+  const [index, setIndex] = useState("1"); // For Update Index query
+  const [value, setValue] = useState("10"); // For Update Index value
+  const [rangeStart, setRangeStart] = useState("0"); // For Range Query and Range Update
+  const [rangeEnd, setRangeEnd] = useState("1"); // For Range Query and Range Update
 
   const handleBuildTree = () => {
     const array = arrayInput
@@ -65,19 +65,15 @@ export default function InputSection({
       toast.error("Invalid index. Please enter a valid index!");
       return;
     }
-    onUpdateIndex(index, value);
+    onUpdateIndex(index, value, speed);
   };
-
 
   const handleRangeQuery = () => {
     if (!checkInRangeOrnot(rangeStart, rangeEnd)) {
       toast.error("Invalid range for query!");
       return;
     }
-    onRangeQuery(rangeStart, rangeEnd);
-    // toast.info(
-    //   `ℹ️ Query result displayed for range [${rangeStart}, ${rangeEnd}]`
-    // );
+    onRangeQuery(rangeStart, rangeEnd, speed);
   };
 
   const handleRangeUpdate = () => {

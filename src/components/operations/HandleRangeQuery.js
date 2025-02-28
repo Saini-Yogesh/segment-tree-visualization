@@ -1,6 +1,6 @@
 import { highlightQueryNode, changePathColor } from "../SegmentTreeD3";
 
-export async function handleRangeQuery(start, end, treeData) {
+export async function handleRangeQuery(start, end, treeData, speed) {
   if (!treeData) {
     console.error("Tree data is undefined! Ensure the tree is built before querying.");
     return;
@@ -26,50 +26,47 @@ export async function handleRangeQuery(start, end, treeData) {
       originalColors.set(node.range, "#0e695a"); // ✅ Default color
     }
 
+    // ✅ Highlight path while moving forward
+    if (parent) {
+      changePathColor(parent.range, node.range, "orange");
+    }
+
     // ✅ Node completely inside range
     if (nodeStart >= start && nodeEnd <= end) {
       console.log(`Using node ${node.range} with value ${node.value}`);
 
-      if (parent && !visitedPaths.has(`${parent.range}-${node.range}`)) {
-        changePathColor(parent.range, node.range, "red");
-        visitedPaths.add(`${parent.range}-${node.range}`);
+      highlightQueryNode(node.range, "green", node.value);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // ✅ Reset path color during backtracking
+      if (parent) {
+        changePathColor(parent.range, node.range, "#0c573e");
       }
 
-      highlightQueryNode(node.range, "green", node.value);
-      await new Promise((resolve) => setTimeout(resolve, 300));
       return node.value;
     }
 
-    // ✅ Change color only if the node contributes to the result
-    if (parent && !visitedPaths.has(`${parent.range}-${node.range}`)) {
-      changePathColor(parent.range, node.range, "orange");
-      visitedPaths.add(`${parent.range}-${node.range}`);
-    }
-
     highlightQueryNode(node.range, "yellow", node.value);
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     let leftValue = node.children?.[0] ? await queryNode(node.children[0], node) : 0;
     let rightValue = node.children?.[1] ? await queryNode(node.children[1], node) : 0;
 
-    // ✅ Revert colors after traversal
+    // ✅ Revert colors after backtracking
     highlightQueryNode(node.range, originalColors.get(node.range), node.value);
 
-    return leftValue + rightValue;
+    // ✅ Reset path color during backtracking
+    if (parent) {
+      changePathColor(parent.range, node.range, "#0c573e");
+    }
+
+    return Number(leftValue) + Number(rightValue);
   }
 
   let result = await queryNode(treeData);
 
   // ✅ Restore all nodes to their original color after animation completes
   originalColors.forEach((color, range) => highlightQueryNode(range, color));
-
-  // ✅ Restore all paths to default color at the same time
-  setTimeout(() => {
-    visitedPaths.forEach((path) => {
-      const [parent, child] = path.split("-");
-      changePathColor(parent, child, "#d3d3d3"); // ✅ Ensure all paths reset uniformly
-    });
-  }, 500);
 
   console.log(`Final result for range [${start}, ${end}] = ${result}`);
   return result;
