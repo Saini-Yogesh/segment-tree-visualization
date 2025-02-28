@@ -65,10 +65,9 @@ export default function InputSection({
       toast.error("Invalid index. Please enter a valid index!");
       return;
     }
-
     onUpdateIndex(index, value);
-    // toast.success(`Index ${index} updated to ${value}!`);
   };
+
 
   const handleRangeQuery = () => {
     if (!checkInRangeOrnot(rangeStart, rangeEnd)) {

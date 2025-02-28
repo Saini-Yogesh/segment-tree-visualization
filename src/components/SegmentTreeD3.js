@@ -91,13 +91,14 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       // Placeholder for value inside the node
       nodeGroup
         .append("text")
-        .text("") // Initially empty text
+        .text("?") // Initially empty text
         .attr("class", "node-value")
         .attr("y", 4)
         .attr("text-anchor", "middle")
         .style("fill", "white")
-        .style("font-size", "12px")
-        .style("visibility", "hidden"); // Initially hidden
+        .style("font-size", "16px");
+      // .style("visibility", "") // Initially hidden
+      // .style("font-weight", "bold");
     };
 
     const updateNodeValueOnBacktrack = (node) => {
@@ -176,4 +177,51 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       </div>
     </>
   );
+}
+
+export function changeNodeColor(range, color) {
+  const sanitizeClassName = (range) =>
+    `range-${range.replace(/[\[\],\s]/g, "-")}`;
+
+  d3.select(`.node-${sanitizeClassName(range)}`)
+    .select("circle")
+    .attr("fill", color); // ✅ Instantly changes color without animation
+}
+
+export function changeNodeAppearance(range, color, newValue) {
+  const sanitizeClassName = (range) =>
+    `range-${range.replace(/[\[\],\s]/g, "-")}`;
+
+  const nodeSelection = d3.select(`.node-${sanitizeClassName(range)}`);
+
+  // ✅ Change node color
+  nodeSelection.select("circle").attr("fill", color);
+
+  // ✅ Update node value inside the circle
+  nodeSelection.select(".node-value").text(newValue);
+}
+
+export function changePathColor(parentRange, childRange, color) {
+  const sanitizeClassName = (range) =>
+    `range-${range.replace(/[\[\],\s]/g, "-")}`;
+
+  d3.select(`.link-${sanitizeClassName(parentRange)}-${sanitizeClassName(childRange)}`)
+    .transition()
+    .duration(300)
+    .attr("stroke", color);
+}
+
+export function highlightQueryNode(range, color, newValue = null) {
+  const sanitizeClassName = (range) =>
+    `range-${range.replace(/[\[\],\s]/g, "-")}`;
+
+  const nodeSelection = d3.select(`.node-${sanitizeClassName(range)}`);
+
+  if (!nodeSelection.empty()) {
+    console.log(`Querying ${range}: changing color to ${color}`);
+    nodeSelection.select("circle").attr("fill", color);
+    if (newValue !== null) {
+      nodeSelection.select(".node-value").text(newValue);
+    }
+  }
 }

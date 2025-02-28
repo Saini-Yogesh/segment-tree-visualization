@@ -8,12 +8,14 @@ import buildHierarchy from "./functions/BuildHierarchy";
 import { handleUpdateIndex } from "./operations/HandleUpdateIndex";
 import { handleRangeQuery } from "./operations/HandleRangeQuery";
 import { handleRangeUpdate } from "./operations/HandleRangeUpdate";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function TreeVisualizer() {
   const [treeData, setTreeData] = useState(null);
   const [animationDelay, setAnimationDelay] = useState(800);
 
-  const handleBuildTree = (array, type, speed) => {
+  const handleBuild = (array, type, speed) => {
     const { tree, ranges } = buildSegmentTree(array, type);
 
     // Create hierarchical data for D3 visualization
@@ -22,12 +24,30 @@ export default function TreeVisualizer() {
     setAnimationDelay(speed); // Update animation delay based on the slider value
   };
 
+  const handleUpdate = async (index, newValue) => {
+    if (!treeData) return;
+
+    // ✅ Wait for `handleUpdateIndex` to finish before showing toast
+    await handleUpdateIndex(index, newValue, treeData, setTreeData, animationDelay);
+
+    // ✅ Show toast after animation completes
+    toast.success(`Index ${index} updated to ${newValue}!`);
+  };
+
+  const handleQuery = async (start, end) => {
+    if (!treeData) return;
+
+    let result = await handleRangeQuery(start, end, treeData);
+    toast.info(`Query result for [${start}, ${end}] = ${result}`);
+  };
+
+
   return (
     <div className="container">
       <InputSection
-        onBuildTree={handleBuildTree}
-        onUpdateIndex={handleUpdateIndex}
-        onRangeQuery={handleRangeQuery}
+        onBuildTree={handleBuild}
+        onUpdateIndex={handleUpdate}
+        onRangeQuery={handleQuery}
         onRangeUpdate={handleRangeUpdate}
       />
       {treeData && (
