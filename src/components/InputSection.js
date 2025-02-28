@@ -11,9 +11,9 @@ export default function InputSection({
   onRangeUpdate,
 }) {
   const [sizeOfArray, setSizeOfArray] = useState(0);
-  const [arrayInput, setArrayInput] = useState("1, 2, 3, 4, 5");
+  const [arrayInput, setArrayInput] = useState("1, 2, 3, 4, 5, 6");
   const [treeType, setTreeType] = useState("sum");
-  const [speed, setSpeed] = useState(800);
+  const [speed, setSpeed] = useState(1000);
 
   // States for handling query visibility and inputs
   const [showUpdateIndex, setShowUpdateIndex] = useState(false);
@@ -65,7 +65,7 @@ export default function InputSection({
       toast.error("Invalid index. Please enter a valid index!");
       return;
     }
-    onUpdateIndex(index, value, speed);
+    onUpdateIndex(index, value, treeType, speed);
   };
 
   const handleRangeQuery = () => {
@@ -73,7 +73,7 @@ export default function InputSection({
       toast.error("Invalid range for query!");
       return;
     }
-    onRangeQuery(rangeStart, rangeEnd, speed);
+    onRangeQuery(rangeStart, rangeEnd, treeType, speed);
   };
 
   const handleRangeUpdate = () => {
@@ -87,7 +87,7 @@ export default function InputSection({
 
   useEffect(() => {
     handleBuildTree();
-  }, []);
+  }, [treeType]);
 
   return (
     <div className="input-section">

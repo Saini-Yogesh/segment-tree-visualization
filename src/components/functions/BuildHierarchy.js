@@ -1,5 +1,8 @@
 const buildHierarchy = (tree, ranges, nodeIndex) => {
-  if (nodeIndex >= tree.length || tree[nodeIndex] === 0) return null; // Skip zero values or null nodes
+  // ✅ Skip nodes where the range is exactly [0, 0] (invalid range)
+  if (nodeIndex >= tree.length || (ranges[nodeIndex][0] === 0 && ranges[nodeIndex][1] === 0 && tree[nodeIndex] === 0 && nodeIndex !== 0)) {
+    return null;
+  }
 
   const [start, end] = ranges[nodeIndex];
 
@@ -18,6 +21,7 @@ const buildHierarchy = (tree, ranges, nodeIndex) => {
   // Only add non-null children
   if (leftChild) node.children.push(leftChild);
   if (rightChild) node.children.push(rightChild);
+
   return node;
 };
 

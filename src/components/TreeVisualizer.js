@@ -24,20 +24,20 @@ export default function TreeVisualizer() {
     setAnimationDelay(speed); // Update animation delay based on the slider value
   };
 
-  const handleUpdate = async (index, newValue, speed) => {
+  const handleUpdate = async (index, newValue, treeType, speed) => {
     if (!treeData) return;
 
     // ✅ Wait for `handleUpdateIndex` to finish before showing toast
-    await handleUpdateIndex(index, newValue, treeData, setTreeData, animationDelay, speed);
+    await handleUpdateIndex(index, newValue, treeData, setTreeData, treeType, speed);
 
     // ✅ Show toast after animation completes
     toast.success(`Index ${index} updated to ${newValue}!`);
   };
 
-  const handleQuery = async (start, end, speed) => {
+  const handleQuery = async (start, end, treeType, speed) => {
     if (!treeData) return;
 
-    let result = await handleRangeQuery(start, end, treeData, speed);
+    let result = await handleRangeQuery(start, end, treeData, treeType, speed);
     toast.info(`Query result for [${start}, ${end}] = ${result}`);
   };
 

@@ -1,6 +1,6 @@
 import { changeNodeAppearance, changePathColor } from "../SegmentTreeD3";
 
-export function handleUpdateIndex(index, newValue, treeData, setTreeData, speed) {
+export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeType, speed) {
   return new Promise((resolve) => {  // ✅ Return a promise
     if (!treeData) {
       console.error("Tree data is undefined! Ensure the tree is built before updating.");
@@ -18,6 +18,7 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, speed)
         .map(Number);
 
       if (start === end && start === index) {
+        // changeNodeAppearance(node.range, "green", newValue);
         console.log(`Updating index ${index} to ${newValue}`);
         node.value = newValue;
 
@@ -25,7 +26,7 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, speed)
         if (parent) changePathColor(parent.range, node.range, "red");
         changeNodeAppearance(node.range, "yellow", newValue);
 
-        await new Promise((resolve) => setTimeout(resolve, 500)); // ✅ Delay
+        await new Promise((resolve) => setTimeout(resolve, speed)); // ✅ Delay
 
         // ✅ Revert colors
         if (parent) changePathColor(parent.range, node.range, "#0e695a");
@@ -41,13 +42,13 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, speed)
       // ✅ Highlight current node and its path from parent
       if (parent) changePathColor(parent.range, node.range, "red");
       changeNodeAppearance(node.range, "yellow", node.value);
-      await new Promise((resolve) => setTimeout(resolve, 500)); // ✅ Delay
+      await new Promise((resolve) => setTimeout(resolve, speed)); // ✅ Delay
 
       if (index <= Math.floor((start + end) / 2)) {
         leftValue = await updateNode(node.children[0], node); // Left subtree
-        rightValue = node.children[1].value; // Keep right value
+        rightValue = node.children[1] ? node.children[1].value : 0; // Keep right value
       } else {
-        leftValue = node.children[0].value; // Keep left value
+        leftValue = node.children[0] ? node.children[0].value : 0; // Keep left value
         rightValue = await updateNode(node.children[1], node); // Right subtree
       }
 
@@ -56,7 +57,7 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, speed)
 
       // ✅ Update parent node color and path
       changeNodeAppearance(node.range, "black", node.value);
-      await new Promise((resolve) => setTimeout(resolve, 500)); // ✅ Delay
+      await new Promise((resolve) => setTimeout(resolve, speed)); // ✅ Delay
       changeNodeAppearance(node.range, "#0e695a", node.value);
 
       // ✅ Revert path color after update

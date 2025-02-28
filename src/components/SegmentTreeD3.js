@@ -18,10 +18,13 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       .attr("width", width)
       .attr("height", height)
       .call(
-        d3.zoom().on("zoom", (event) => {
-          g.attr("transform", event.transform);
-        })
+        d3.zoom()
+          .scaleExtent([0.3, 2]) // Set zoom level limits 0.3x to 2x
+          .on("zoom", (event) => {
+            g.attr("transform", event.transform);
+          })
       );
+
 
     svg.selectAll("*").remove();
 
