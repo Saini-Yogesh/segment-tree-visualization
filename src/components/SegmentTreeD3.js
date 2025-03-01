@@ -119,18 +119,24 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       const path = linkLayer
         .select(`.link-${sanitizeClassName(source.data.range)}-${sanitizeClassName(target.data.range)}`);
 
-      // Get the total path length
+      // ✅ Ensure path exists before proceeding
+      if (path.empty() || !path.node()) {
+        console.warn(`Path from ${source.data.range} to ${target.data.range} not found.`);
+        return;
+      }
+
       const totalLength = path.node().getTotalLength();
       path
         .attr("stroke", color)
         .attr("stroke-width", 2)
-        .attr("stroke-dasharray", totalLength + " " + totalLength)
-        .attr("stroke-dashoffset", isBacktracking ? 0 : totalLength) // 🔹 Change direction based on backtracking
+        .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
+        .attr("stroke-dashoffset", isBacktracking ? 0 : totalLength)
         .transition()
         .duration(animationDelay)
         .ease(d3.easeLinear)
-        .attr("stroke-dashoffset", isBacktracking ? totalLength : 0); // 🔹 Reverse stroke for backtracking
+        .attr("stroke-dashoffset", isBacktracking ? totalLength : 0);
     };
+
 
     const highlightNode = (node, color) => {
       nodeLayer
@@ -225,14 +231,14 @@ export function changePathColor(parentRange, childRange, color, isBacktracking =
 
   const path = d3.select(`.link-${sanitizeClassName(parentRange)}-${sanitizeClassName(childRange)}`);
 
-  if (path.empty()) return; // Avoid errors if path is not found
+  if (path.empty() || !path.node()) return; // Avoid errors if path is not found
 
   const totalLength = path.node().getTotalLength();
 
   path
     .attr("stroke", color)
     .attr("stroke-width", 2)
-    .attr("stroke-dasharray", totalLength + " " + totalLength)
+    .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
     .attr("stroke-dashoffset", isBacktracking ? 0 : totalLength) // 🔹 Reverse direction for backtracking
     .transition()
     .duration(300)
