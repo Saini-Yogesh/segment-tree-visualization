@@ -1,8 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import "./styles/InputSection.css";
-import { ToastContainer, toast, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import styles
+import { toast } from "react-toastify";
 
 export default function InputSection({
   onBuildTree,
@@ -89,19 +88,6 @@ export default function InputSection({
 
   return (
     <div className="input-section">
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={true}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
       {/* tree-type-options */}
       <span className="tree-type-options">
         <p
@@ -150,7 +136,6 @@ export default function InputSection({
         />
         <span className="speed-value">{(2000 - speed) / 1000}x</span>
       </span>
-
 
       {/* Update Index Query */}
       <div className={`query-section ${showUpdateIndex ? "expanded" : ""}`}>

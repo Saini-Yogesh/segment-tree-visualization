@@ -8,8 +8,7 @@ import buildHierarchy from "./functions/BuildHierarchy/BuildHierarchy";
 import { handleUpdateIndex } from "./operations/HandleUpdateIndex";
 import { handleRangeQuery } from "./operations/HandleRangeQuery";
 import { handleRangeUpdate } from "./operations/HandleRangeUpdate";
-import { ToastContainer, toast, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function TreeVisualizer() {
   const [treeData, setTreeData] = useState(null);

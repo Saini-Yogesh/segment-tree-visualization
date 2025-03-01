@@ -46,8 +46,6 @@ const downloadSVGAsPNG = () => {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-
-        // toast.success("SVG downloaded as PNG! 🎉");
     };
 
     img.src = url; // ✅ Load SVG into Image for Rendering

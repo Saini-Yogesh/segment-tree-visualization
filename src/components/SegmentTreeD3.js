@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import "./styles/SegmentTreeD3.css";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import styles
 import downloadSVGAsPNG from "./functions/downloadSVGAsPNG/downloadSVGAsPNG";
 import fitSegmentTree from "./functions/FitInTheFrame/fitSegmentTree";
 import DownloadIcon from "./functions/downloadSVGAsPNG/download-solid.svg";
@@ -106,8 +105,6 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         .attr("text-anchor", "middle")
         .style("fill", "white")
         .style("font-size", "16px");
-      // .style("visibility", "") // Initially hidden
-      // .style("font-weight", "bold");
     };
 
     const updateNodeValueOnBacktrack = (node) => {
@@ -118,14 +115,21 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       nodeText.text(`${node.data.value}`).style("visibility", "visible");
     };
 
-    const highlightPath = (source, target, color) => {
-      linkLayer
-        .select(
-          `.link-${sanitizeClassName(source.data.range)}-${sanitizeClassName(
-            target.data.range
-          )}`
-        )
-        .attr("stroke", color);
+    const highlightPath = (source, target, color, isBacktracking = false) => {
+      const path = linkLayer
+        .select(`.link-${sanitizeClassName(source.data.range)}-${sanitizeClassName(target.data.range)}`);
+
+      // Get the total path length
+      const totalLength = path.node().getTotalLength();
+      path
+        .attr("stroke", color)
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", isBacktracking ? 0 : totalLength) // 🔹 Change direction based on backtracking
+        .transition()
+        .duration(animationDelay)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", isBacktracking ? totalLength : 0); // 🔹 Reverse stroke for backtracking
     };
 
     const highlightNode = (node, color) => {
@@ -197,20 +201,9 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         </div>
         <svg id="my-svg" ref={svgRef}></svg>
       </div>
-      <ToastContainer position="top-right" theme="dark" autoClose={3000} />
+      <ToastContainer position="top-right" theme="dark" autoClose={2000} />
     </>
-
-
   );
-}
-
-export function changeNodeColor(range, color) {
-  const sanitizeClassName = (range) =>
-    `range-${range.replace(/[\[\],\s]/g, "-")}`;
-
-  d3.select(`.node-${sanitizeClassName(range)}`)
-    .select("circle")
-    .attr("fill", color); // ✅ Instantly changes color without animation
 }
 
 export function changeNodeAppearance(range, color, newValue) {
@@ -226,27 +219,23 @@ export function changeNodeAppearance(range, color, newValue) {
   nodeSelection.select(".node-value").text(newValue);
 }
 
-export function changePathColor(parentRange, childRange, color) {
+export function changePathColor(parentRange, childRange, color, isBacktracking = false) {
   const sanitizeClassName = (range) =>
     `range-${range.replace(/[\[\],\s]/g, "-")}`;
 
-  d3.select(`.link-${sanitizeClassName(parentRange)}-${sanitizeClassName(childRange)}`)
+  const path = d3.select(`.link-${sanitizeClassName(parentRange)}-${sanitizeClassName(childRange)}`);
+
+  if (path.empty()) return; // Avoid errors if path is not found
+
+  const totalLength = path.node().getTotalLength();
+
+  path
+    .attr("stroke", color)
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", totalLength + " " + totalLength)
+    .attr("stroke-dashoffset", isBacktracking ? 0 : totalLength) // 🔹 Reverse direction for backtracking
     .transition()
     .duration(300)
-    .attr("stroke", color);
-}
-
-export function highlightQueryNode(range, color, newValue = null) {
-  const sanitizeClassName = (range) =>
-    `range-${range.replace(/[\[\],\s]/g, "-")}`;
-
-  const nodeSelection = d3.select(`.node-${sanitizeClassName(range)}`);
-
-  if (!nodeSelection.empty()) {
-    console.log(`Querying ${range}: changing color to ${color}`);
-    nodeSelection.select("circle").attr("fill", color);
-    if (newValue !== null) {
-      nodeSelection.select(".node-value").text(newValue);
-    }
-  }
+    .ease(d3.easeLinear)
+    .attr("stroke-dashoffset", isBacktracking ? totalLength : 0); // 🔹 Animate in reverse if backtracking
 }

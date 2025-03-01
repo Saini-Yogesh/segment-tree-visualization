@@ -1,4 +1,4 @@
-import { highlightQueryNode, changePathColor } from "../SegmentTreeD3";
+import { changeNodeAppearance, changePathColor } from "../SegmentTreeD3";
 
 export async function handleRangeQuery(start, end, treeData, treeType, speed) {
   if (!treeData) {
@@ -33,7 +33,6 @@ export async function handleRangeQuery(start, end, treeData, treeType, speed) {
 
     // ✅ If node is completely inside the range
     if (nodeStart >= start && nodeEnd <= end) {
-      highlightQueryNode(node.range, "green", node.value);
       await new Promise((resolve) => setTimeout(resolve, speed));
 
       // ✅ Reset path color when backtracking
@@ -45,7 +44,7 @@ export async function handleRangeQuery(start, end, treeData, treeType, speed) {
     }
 
     // ✅ Highlight partial contribution nodes
-    highlightQueryNode(node.range, "yellow", node.value);
+    changeNodeAppearance(node.range, "yellow", node.value);
     await new Promise((resolve) => setTimeout(resolve, speed));
 
     // ✅ Query left and right children
@@ -59,11 +58,11 @@ export async function handleRangeQuery(start, end, treeData, treeType, speed) {
     else if (treeType === "max") result = Math.max(Number(leftValue), Number(rightValue));
 
     // ✅ Animate result computation during backtracking
-    highlightQueryNode(node.range, "blue", node.value);
+    changeNodeAppearance(node.range, "blue", node.value);
     await new Promise((resolve) => setTimeout(resolve, speed));
 
     // ✅ Reset node and path colors after backtracking
-    highlightQueryNode(node.range, "#0e695a", node.value);
+    changeNodeAppearance(node.range, "#0e695a", node.value);
     if (parent) {
       changePathColor(parent.range, node.range, "#0c573e");
     }
@@ -73,6 +72,5 @@ export async function handleRangeQuery(start, end, treeData, treeType, speed) {
 
   let finalResult = await queryNode(treeData);
 
-  console.log(`Final result for range [${start}, ${end}] = ${finalResult}`);
   return finalResult;
 }
