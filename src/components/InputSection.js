@@ -49,10 +49,10 @@ export default function InputSection({
 
   const checkInRangeOrnot = (rangeStart, rangeEnd) => {
     if (
+      rangeStart > rangeEnd ||
       rangeStart < 0 ||
-      rangeStart >= sizeOfArray ||
-      rangeStart >= rangeEnd ||
       rangeEnd < 0 ||
+      rangeStart >= sizeOfArray ||
       rangeEnd >= sizeOfArray
     ) {
       return false;
