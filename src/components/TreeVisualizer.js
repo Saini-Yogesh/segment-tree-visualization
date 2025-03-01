@@ -41,13 +41,23 @@ export default function TreeVisualizer() {
     toast.info(`Query result for [${start}, ${end}] = ${result}`);
   };
 
+  const RangeUpdate = async (start, end, value, treeType, speed) => {
+    if (!treeData) return;
+
+    // ✅ Wait for `handleRangeUpdate` to finish before showing toast
+    await handleRangeUpdate(start, end, value, treeData, treeType, speed);
+
+    // ✅ Show toast after animation completes
+    // toast.info("Range update feature is under development! 🚧");
+  }
+
   return (
     <div className="container">
       <InputSection
         onBuildTree={handleBuild}
         onUpdateIndex={handleUpdate}
         onRangeQuery={handleQuery}
-        onRangeUpdate={handleRangeUpdate}
+        onRangeUpdate={RangeUpdate}
       />
       {treeData && (
         <div className="svg-container-wrapper">

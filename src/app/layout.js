@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://segment-tree-visualization.vercel.app/"),
   title: "Segment Tree Visualizer | Interactive Range Query Demo",
   description:
     "Visualize Segment Tree operations like Range Min, Max, and Sum Queries in real time. Learn how to optimize range updates efficiently with our interactive visualizer.",

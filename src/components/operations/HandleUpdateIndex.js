@@ -1,4 +1,3 @@
-import { tree } from "d3";
 import { changeNodeAppearance, changePathColor } from "../SegmentTreeD3";
 
 export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeType, speed) {

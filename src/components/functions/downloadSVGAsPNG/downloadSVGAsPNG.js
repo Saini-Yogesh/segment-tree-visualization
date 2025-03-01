@@ -41,7 +41,7 @@ const downloadSVGAsPNG = () => {
         const image = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = image;
-        link.download = "segment-tree-high-quality.png";
+        link.download = "segment-tree.png";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
