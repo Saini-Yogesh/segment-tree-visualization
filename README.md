@@ -1,6 +1,6 @@
 # Segment Tree Visualizer
 
-![image](https://github.com/user-attachments/assets/65c8bab3-897c-47ce-88ec-d348bc350310)
+![image](https://github.com/user-attachments/assets/3823fe62-1c6f-4c8f-aee0-6ca96db2ed9a)
 
 ## Introduction
 The Segment Tree Visualizer is a web-based application built using Next.js that provides an interactive way to understand and visualize different types of segment trees. This project showcases efficient data structure operations and dynamic visualizations.
