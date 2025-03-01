@@ -31,6 +31,19 @@ export default function InputSection({
   const [rangeStart, setRangeStart] = useState("0"); // For Range Query and Range Update
   const [rangeEnd, setRangeEnd] = useState("1"); // For Range Query and Range Update
 
+  const checkInRangeOrnot = (rangeStart, rangeEnd) => {
+    if (
+      rangeStart > rangeEnd ||
+      rangeStart < 0 ||
+      rangeEnd < 0 ||
+      rangeStart >= sizeOfArray ||
+      rangeEnd >= sizeOfArray
+    ) {
+      return false;
+    }
+    return true;
+  };
+
   const handleBuildTree = () => {
     const array = arrayInput
       .split(/[\s,]+/)
@@ -44,20 +57,6 @@ export default function InputSection({
 
     setSizeOfArray(array.length);
     onBuildTree(array, treeType, speed);
-    // toast.success("Tree built successfully!");
-  };
-
-  const checkInRangeOrnot = (rangeStart, rangeEnd) => {
-    if (
-      rangeStart > rangeEnd ||
-      rangeStart < 0 ||
-      rangeEnd < 0 ||
-      rangeStart >= sizeOfArray ||
-      rangeEnd >= sizeOfArray
-    ) {
-      return false;
-    }
-    return true;
   };
 
   const handleUpdateIndex = () => {
@@ -82,7 +81,6 @@ export default function InputSection({
       return;
     }
     onRangeUpdate(rangeStart, rangeEnd, value);
-    // toast.success(`Range [${rangeStart}, ${rangeEnd}] updated to ${value}!`);
   };
 
   useEffect(() => {

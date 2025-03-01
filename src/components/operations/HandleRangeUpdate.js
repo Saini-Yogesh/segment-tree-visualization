@@ -7,5 +7,5 @@ export const handleRangeUpdate = (
   onRangeUpdate
 ) => {
   //   onRangeUpdate(rangeStart, rangeEnd, value);
-  toast.success(`Range [${rangeStart}, ${rangeEnd}] updated to ${value}!`);
+  toast.info("Range update feature is under development! 🚧");
 };

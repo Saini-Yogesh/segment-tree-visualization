@@ -2,6 +2,9 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import "./styles/SegmentTreeD3.css";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import styles
+import downloadSVGAsPNG from "./featuresToWork/downloadSVGAsPNG";
 
 export default function SegmentTreeD3({ data, animationDelay }) {
   const svgRef = useRef();
@@ -166,6 +169,10 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         .select(`.node-${sanitizeClassName(node.data.range)}`)
         .select("circle")
         .attr("stroke", "white");
+
+      if (!node.parent) {
+        toast.success("Segment Tree built successfully! 🎉");
+      }
     };
 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -175,9 +182,11 @@ export default function SegmentTreeD3({ data, animationDelay }) {
 
   return (
     <>
+      <button onClick={downloadSVGAsPNG}>Download as PNG</button>
       <div id="svg-container">
         <svg id="my-svg" ref={svgRef}></svg>
       </div>
+      <ToastContainer position="top-right" theme="dark" autoClose={3000} />
     </>
   );
 }
