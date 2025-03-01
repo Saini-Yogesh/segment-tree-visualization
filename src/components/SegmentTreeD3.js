@@ -4,8 +4,11 @@ import * as d3 from "d3";
 import "./styles/SegmentTreeD3.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
-import downloadSVGAsPNG from "./featuresToWork/downloadSVGAsPNG";
-import fitSegmentTree from "./featuresToWork/fitSegmentTree";
+import downloadSVGAsPNG from "./functions/downloadSVGAsPNG/downloadSVGAsPNG";
+import fitSegmentTree from "./functions/FitInTheFrame/fitSegmentTree";
+import DownloadIcon from "./functions/downloadSVGAsPNG/download-solid.svg";
+import FitIcon from "./functions/FitInTheFrame/fit-solid.svg";
+import Image from "next/image";
 
 export default function SegmentTreeD3({ data, animationDelay }) {
   const svgRef = useRef();
@@ -185,13 +188,18 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       <div id="svg-container">
         {/* ✅ Buttons container for absolute positioning */}
         <div className="buttons-container">
-          <button onClick={fitSegmentTree}>Fit Segment Tree</button>
-          <button onClick={downloadSVGAsPNG}>Download as PNG</button>
+          <button onClick={fitSegmentTree}>
+            <Image src={FitIcon} alt="Fit Tree" className="icon" /> Fit in frame
+          </button>
+          <button onClick={downloadSVGAsPNG}>
+            <Image src={DownloadIcon} alt="Download PNG" className="icon" /> Download as PNG
+          </button>
         </div>
         <svg id="my-svg" ref={svgRef}></svg>
       </div>
       <ToastContainer position="top-right" theme="dark" autoClose={3000} />
     </>
+
 
   );
 }

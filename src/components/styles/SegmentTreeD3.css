@@ -13,7 +13,7 @@
   justify-content: center;
   align-items: center;
 }
-
+/* ✅ Keep buttons at the top-right corner */
 .buttons-container {
   position: absolute;
   top: 5px;
@@ -22,17 +22,42 @@
   gap: 10px;
 }
 
+/* ✅ Modern button styling */
 .buttons-container button {
-  background-color: #007bff;
+  gap: 8px;
+  background: rgba(0, 123, 255, 0.8); /* Semi-transparent blue */
   color: white;
   border: none;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 8px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: 0.2s ease-in-out;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  backdrop-filter: blur(8px); /* ✅ Adds a glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
 }
 
+/* ✅ Improve button icon size */
+.buttons-container button img {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* ✅ Hover effect */
 .buttons-container button:hover {
-  background-color: #0056b3;
+  background: none; /* Remove background color */
+  transform: scale(1.1); /* Slight zoom effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  color: black;
+}
+
+/* ✅ Hover effect for icons */
+.buttons-container button:hover img {
+  transform: rotate(10deg); /* Slight rotation for interaction */
 }

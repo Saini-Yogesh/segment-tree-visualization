@@ -74,15 +74,20 @@
   color: red;
 }
 
-/* Slider styling */
-.input-section label {
-  font-weight: bold;
-  margin-right: 10px;
+.speed-control {
+  justify-content: center;
+  font-size: 14px;
 }
-
-.input-section input[type="range"] {
+.speed-input {
+  margin: 10px 0;
   width: 100%;
-  cursor: pointer;
+}
+/* ✅ Style the dynamic speed value */
+.speed-value,
+.speed-label {
+  font-weight: bold;
+  max-width: 50px;
+  text-align: right;
 }
 
 /* Add some spacing between the slider and text */
@@ -164,11 +169,6 @@ button:hover {
 .query-inputs input,
 .query-inputs button {
   margin: 5px;
-}
-
-input[type="range"] {
-  width: 200px;
-  margin: 10px 0;
 }
 
 @media screen and (max-width: 1000px) {

@@ -4,7 +4,7 @@ import { buildSegmentTree } from "./utils/segmentTreeUtils";
 import SegmentTreeD3 from "./SegmentTreeD3";
 import InputSection from "./InputSection";
 import "./styles/TreeVisualizer.css";
-import buildHierarchy from "./functions/BuildHierarchy";
+import buildHierarchy from "./functions/BuildHierarchy/BuildHierarchy";
 import { handleUpdateIndex } from "./operations/HandleUpdateIndex";
 import { handleRangeQuery } from "./operations/HandleRangeQuery";
 import { handleRangeUpdate } from "./operations/HandleRangeUpdate";

@@ -137,17 +137,20 @@ export default function InputSection({
       </button>
 
       {/* speed range */}
-      <span>
-        <label>Speed:</label>
+      <span className="speed-control">
+        <label className="speed-label">Speed:</label>
         <input
+          className="speed-input"
           type="range"
           min="100"
           max="2000"
-          step="20"
+          step="10"
           value={2000 - speed}
           onChange={(e) => setSpeed(2000 - parseInt(e.target.value))}
         />
+        <span className="speed-value">{(2000 - speed) / 1000}x</span>
       </span>
+
 
       {/* Update Index Query */}
       <div className={`query-section ${showUpdateIndex ? "expanded" : ""}`}>
