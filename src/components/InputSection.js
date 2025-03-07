@@ -43,7 +43,7 @@ export default function InputSection({
     return true;
   };
 
-  const handleBuildTree = () => {
+  const handleBuildTree = async (customSpeed) => {
     const array = arrayInput
       .split(/[\s,]+/)
       .map((num) => parseInt(num.trim()))
@@ -55,7 +55,7 @@ export default function InputSection({
     }
 
     setSizeOfArray(array.length);
-    onBuildTree(array, treeType, speed);
+    onBuildTree(array, treeType, customSpeed);
   };
 
   const handleUpdateIndex = () => {
@@ -83,7 +83,7 @@ export default function InputSection({
   };
 
   useEffect(() => {
-    handleBuildTree();
+    handleBuildTree(0);
   }, [treeType]);
 
   return (
@@ -118,7 +118,7 @@ export default function InputSection({
         onChange={(e) => setArrayInput(e.target.value)}
         placeholder="Enter array (comma or space separated)"
       />
-      <button onClick={handleBuildTree} className="build-buttons">
+      <button onClick={() => handleBuildTree(speed)} className="build-buttons">
         Build Tree
       </button>
 
