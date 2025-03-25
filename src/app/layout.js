@@ -29,7 +29,8 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/preview.jpg",
+        url: "https://images.tpointtech.com/ds/images/binary-tree.png", // Ensure absolute URL
+        secure_url: "https://images.tpointtech.com/ds/images/binary-tree.png", // Ensure secure access
         width: 1200,
         height: 630,
         alt: "Segment Tree Visualization - Interactive Learning",
