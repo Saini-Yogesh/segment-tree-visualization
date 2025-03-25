@@ -42,7 +42,7 @@ export const metadata = {
     title: "Segment Tree Visualizer | Learn & Optimize",
     description:
       "Understand and visualize Segment Tree operations! Run real-time range queries and updates with an interactive interface.",
-    images: ["/preview.jpg"],
+    images: ["https://images.tpointtech.com/ds/images/binary-tree.png"],
   },
 };
 
@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
                 priceCurrency: "USD",
               },
               url: "https://segment-tree-visualization.vercel.app/",
-              image: "/preview.jpg",
+              image: "https://images.tpointtech.com/ds/images/binary-tree.png",
               author: {
                 "@type": "Person",
                 name: "Yogesh Saini",
