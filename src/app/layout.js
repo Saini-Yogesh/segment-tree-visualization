@@ -15,16 +15,16 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   metadataBase: new URL("https://segment-tree-visualization.vercel.app/"),
-  title: "Segment Tree Visualizer | Interactive Range Query Demo",
+  title: "Segment Tree Visualizer | Interactive DSA Tool for Range Queries",
   description:
-    "Visualize Segment Tree operations like Range Min, Max, and Sum Queries in real time. Learn how to optimize range updates efficiently with our interactive visualizer.",
+    "Master Segment Trees with our interactive visualizer! Learn how to efficiently perform Range Minimum, Maximum, and Sum Queries with real-time animations.",
   keywords:
-    "Segment Tree, ST, Range Min Query, Range Max Query, Range Sum Query, RMQ, RSQ, Segment Tree Visualization, Data Structures, DSA Visualizer",
+    "Segment Tree, Data Structures, DSA, Range Queries, Range Minimum Query, Range Maximum Query, Range Sum Query, Lazy Propagation, Algorithm Visualization, Interactive Learning",
   openGraph: {
-    title: "Segment Tree Visualizer | Learn and Optimize",
+    title: "Segment Tree Visualizer | Master Range Queries",
     description:
-      "Explore how Segment Trees work! Visualize Range Min/Max/Sum Queries and optimize range updates interactively.",
-    url: "https://yourwebsite.com/segment-tree-visualizer",
+      "Explore and understand Segment Trees with an interactive visualizer. Perform Range Min, Max, and Sum Queries in real time with smooth animations.",
+    url: "https://segment-tree-visualization.vercel.app/",
     siteName: "Segment Tree Visualizer",
     type: "website",
     images: [
@@ -32,15 +32,15 @@ export const metadata = {
         url: "/preview.jpg",
         width: 1200,
         height: 630,
-        alt: "Segment Tree Visualization Preview",
+        alt: "Segment Tree Visualization - Interactive Learning",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Segment Tree Visualizer",
+    title: "Segment Tree Visualizer | Learn & Optimize",
     description:
-      "Learn and interact with Segment Tree operations! Visualize queries and updates in real-time.",
+      "Understand and visualize Segment Tree operations! Run real-time range queries and updates with an interactive interface.",
     images: ["/preview.jpg"],
   },
 };
@@ -65,6 +65,12 @@ export default function RootLayout({ children }) {
                 "@type": "Offer",
                 price: "0",
                 priceCurrency: "USD",
+              },
+              url: "https://segment-tree-visualization.vercel.app/",
+              image: "/preview.jpg",
+              author: {
+                "@type": "Person",
+                name: "Yogesh Saini",
               },
             }),
           }}
