@@ -1,13 +1,105 @@
 .about {
-  min-height: 100vh;
   background: #f9fafb;
-  padding: 20px;
+  padding: 20px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.section-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+/* ===== Project Aim Section ===== */
+.project-aim {
+  max-width: 1220px;
+}
+
+.project-aim-tag {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #2563eb;
+  margin-bottom: 8px;
+}
+
+.project-aim-heading {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 18px;
+}
+
+.project-aim-heading span {
+  color: #2563eb;
+}
+
+.project-aim-list {
+  padding-left: 22px;
+  margin-bottom: 18px;
+}
+
+.project-aim-list li {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+.project-aim-list strong {
+  color: #111827;
+}
+
+.project-aim-closing {
+  font-size: 17px;
+  color: #374151;
+  margin-bottom: 22px;
+}
+
+/* Highlight contribution */
+.project-aim-highlight {
+  background: #eef2ff;
+  border-left: 4px solid #2563eb;
+  padding: 18px 20px;
+  border-radius: 10px;
+}
+
+.project-aim-highlight h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.project-aim-highlight p {
+  font-size: 16px;
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+.project-aim-link {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.project-aim-link:hover {
+  color: #1d4ed8;
+  transform: translateX(4px);
+}
+
+/* ===== About Me Section ===== */
 .about-highlight {
   background: #eef2ff;
   border-left: 4px solid #2563eb;
@@ -17,9 +109,9 @@
 
 .about-wrapper {
   max-width: 1220px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  margin: 0px 0px 40px;
+  display: flex;
+  flex-direction: row;
   gap: 68px;
   align-items: center;
 }
@@ -98,10 +190,20 @@
 }
 
 /* Responsive */
-@media (max-width: 900px) {
-  .about-wrapper {
-    grid-template-columns: 1fr;
+@media (max-width: 1150px) {
+  .project-aim {
+    padding: 22px;
     text-align: center;
+  }
+
+  .project-aim-list {
+    text-align: left;
+  }
+
+  .about-wrapper {
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
   }
 
   .about-actions {

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { buildSegmentTree } from "./utils/segmentTreeUtils";
 import SegmentTreeD3 from "./TreeVisualizerSideBar";
-import InputSection from "./InputSideBar";
+import InputSideBar from "./InputSideBar";
 import "./styles/Home.css";
 import buildHierarchy from "./functions/BuildHierarchy/BuildHierarchy";
 import { handleUpdateIndex } from "./operations/HandleUpdateIndex";
@@ -52,17 +52,16 @@ export default function Home() {
 
   return (
     <div className="container">
-      <InputSection
+      <InputSideBar
         onBuildTree={handleBuild}
         onUpdateIndex={handleUpdate}
         onRangeQuery={handleQuery}
         onRangeUpdate={RangeUpdate}
       />
-      {treeData && (
-        <div className="svg-container-wrapper">
-          <SegmentTreeD3 data={treeData} animationDelay={animationDelay} />
-        </div>
-      )}
+      <div className="svg-container-wrapper">
+        <SegmentTreeD3 data={treeData} animationDelay={animationDelay} />
+      </div>
     </div>
+
   );
 }

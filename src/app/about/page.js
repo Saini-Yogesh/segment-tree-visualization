@@ -8,6 +8,85 @@ import { FaEnvelope, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa'
 export default function About() {
   return (
     <section className="about">
+
+      <h2 className="section-title ">
+        About The Project
+      </h2>
+
+      <div className="project-aim">
+        <span className="project-aim-tag">PROJECT AIM</span>
+
+        <h2 className="project-aim-heading">
+          Why I Built This <span>Segment Tree Visualizer</span>
+        </h2>
+
+        <ul className="project-aim-list">
+          <li>
+            I am a <strong>competitive programmer</strong>, and while solving
+            higher-difficulty problems, I realized that mastering data structures
+            like <strong>Segment Trees</strong> is essential.
+          </li>
+
+          <li>
+            When I started learning segment trees, I initially struggled to
+            understand how queries, updates, and tree traversal work internally.
+            Dry runs were time-consuming and error-prone.
+          </li>
+
+          <li>
+            I searched for <strong>segment tree visualizers</strong> to get an
+            animated understanding, but couldn’t find any tool that clearly
+            visualized segment trees—especially
+            <strong> Lazy Propagation</strong>.
+          </li>
+
+          <li>
+            Lazy-propagated segment trees are even harder to grasp without proper
+            visualization, and testing multiple cases manually wastes a lot of time.
+            I realized many learners face the same issue.
+          </li>
+
+          <li>
+            This motivated me to build this <strong>Segment Tree Visualizer</strong>,
+            a tool that visually demonstrates construction, range queries, point
+            updates, and lazy propagation in a clear and interactive way.
+          </li>
+
+          <li>
+            Along with visualization, I also explain the concepts so users can
+            <strong> read and visually understand</strong> the logic in one place.
+          </li>
+        </ul>
+
+        <p className="project-aim-closing">
+          This is my small attempt to solve a real problem faced by many programmers
+          and help others learn faster without wasting time searching for scattered
+          resources.
+        </p>
+
+        <div className="project-aim-highlight">
+          <h3>Contribute & Collaborate</h3>
+          <p>
+            If you have ideas, suggestions, or improvements, feel free to contribute.
+            Even small enhancements can save valuable time for other learners and
+            give you real-world open-source experience.
+          </p>
+
+          <a
+            href="https://github.com/Saini-Yogesh/segment-tree-visualization"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-aim-link"
+          >
+            View Project Repository →
+          </a>
+        </div>
+      </div>
+
+      <h2 className="section-title" style={{ marginTop: "40px" }}>
+        About Me(Developer)
+      </h2>
+
       <div className="about-wrapper">
         <div className="about-content">
           <span className="about-tag">ABOUT ME</span>
@@ -17,7 +96,7 @@ export default function About() {
           </h1>
 
           <p className="about-subtitle">
-            Full-Stack Developer · Backend-Focused
+            · Full-Stack Developer · Backend-Focused
           </p>
 
           <p className="about-description">
@@ -81,9 +160,9 @@ export default function About() {
         </div>
       </div>
 
-      <footer className="about-footer">
+      <div className="about-footer">
         © {new Date().getFullYear()} Yogesh Saini · All rights reserved
-      </footer>
+      </div>
     </section>
   )
 }

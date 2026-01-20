@@ -89,26 +89,32 @@ export default function InputSection({
   return (
     <div className="input-section">
       {/* tree-type-options */}
-      <span className="tree-type-options">
-        <p
-          className={treeType === "sum" ? "current-tree-type-options" : ""}
-          onClick={() => setTreeType("sum")}
-        >
-          SUM SEGMENT TREE
-        </p>
-        <p
-          className={treeType === "min" ? "current-tree-type-options" : ""}
-          onClick={() => setTreeType("min")}
-        >
-          MIN SEGMENT TREE
-        </p>
-        <p
-          className={treeType === "max" ? "current-tree-type-options" : ""}
-          onClick={() => setTreeType("max")}
-        >
-          MAX SEGMENT TREE
-        </p>
-      </span>
+      <div className="tree-type-section">
+        <p className="tree-type-label">Select Segment Tree Type:- </p>
+
+        <div className="tree-type-options">
+          <button
+            className={treeType === "sum" ? "active" : ""}
+            onClick={() => setTreeType("sum")}
+          >
+            SUM
+          </button>
+
+          <button
+            className={treeType === "min" ? "active" : ""}
+            onClick={() => setTreeType("min")}
+          >
+            MIN
+          </button>
+
+          <button
+            className={treeType === "max" ? "active" : ""}
+            onClick={() => setTreeType("max")}
+          >
+            MAX
+          </button>
+        </div>
+      </div>
 
       {/* input Array */}
       <label htmlFor="input-array">Enter Array:</label>
@@ -148,26 +154,32 @@ export default function InputSection({
 
         {showUpdateIndex && (
           <div className="query-inputs">
-            <label htmlFor="update-index">Enter Index:</label>
-            <input
-              id="update-index"
-              type="number"
-              value={index === null ? "" : index}
-              onChange={(e) =>
-                setIndex(e.target.value === "" ? null : Number(e.target.value))
-              }
-              placeholder="Enter index"
-            />
-            <label htmlFor="update-value">Enter Value:</label>
-            <input
-              id="update-value"
-              type="number"
-              value={value === null ? "" : value}
-              onChange={(e) =>
-                setValue(e.target.value === "" ? null : Number(e.target.value))
-              }
-              placeholder="Enter value"
-            />
+            <div className="input-row">
+              <div className="input-group">
+                <label htmlFor="update-index">Enter Index:</label>
+                <input
+                  id="update-index"
+                  type="number"
+                  value={index === null ? "" : index}
+                  onChange={(e) =>
+                    setIndex(e.target.value === "" ? null : Number(e.target.value))
+                  }
+                  placeholder="Enter index"
+                />
+              </div>
+              <div className="input-group">
+                <label htmlFor="update-value">Enter Value:</label>
+                <input
+                  id="update-value"
+                  type="number"
+                  value={value === null ? "" : value}
+                  onChange={(e) =>
+                    setValue(e.target.value === "" ? null : Number(e.target.value))
+                  }
+                  placeholder="Enter value"
+                />
+              </div>
+            </div>
             <button onClick={handleUpdateIndex}>Update Index</button>
           </div>
         )}
@@ -183,30 +195,33 @@ export default function InputSection({
         </p>
         {showRangeQuery && (
           <div className="query-inputs">
-            <label htmlFor="range-start">Start Range:</label>
-            <input
-              id="range-start"
-              type="number"
-              value={rangeStart === null ? "" : rangeStart}
-              onChange={(e) =>
-                setRangeStart(
-                  e.target.value === "" ? null : Number(e.target.value)
-                )
-              }
-              placeholder="Start Range"
-            />
-            <label htmlFor="range-end">End Range:</label>
-            <input
-              id="range-end"
-              type="number"
-              value={rangeEnd === null ? "" : rangeEnd}
-              onChange={(e) =>
-                setRangeEnd(
-                  e.target.value === "" ? null : Number(e.target.value)
-                )
-              }
-              placeholder="End Range"
-            />
+            <div className="input-row">
+              <div className="input-group">
+                <label htmlFor="range-start">Start Range:</label>
+                <input
+                  id="range-start"
+                  type="number"
+                  value={rangeStart === null ? "" : rangeStart}
+                  onChange={(e) =>
+                    setRangeStart(e.target.value === "" ? null : Number(e.target.value))
+                  }
+                  placeholder="Start"
+                />
+              </div>
+              <div className="input-group">
+                <label htmlFor="range-end">End Range:</label>
+                <input
+                  id="range-end"
+                  type="number"
+                  value={rangeEnd === null ? "" : rangeEnd}
+                  onChange={(e) =>
+                    setRangeEnd(e.target.value === "" ? null : Number(e.target.value))
+                  }
+                  placeholder="End"
+                />
+              </div>
+            </div>
+
             <button onClick={handleRangeQuery}>Query Range</button>
           </div>
         )}
@@ -222,30 +237,34 @@ export default function InputSection({
         </p>
         {showRangeUpdate && (
           <div className="query-inputs">
-            <label htmlFor="range-update-start">Start Range:</label>
-            <input
-              id="range-update-start"
-              type="number"
-              value={rangeStart === null ? "" : rangeStart}
-              onChange={(e) =>
-                setRangeStart(
-                  e.target.value === "" ? null : Number(e.target.value)
-                )
-              }
-              placeholder="Start Range"
-            />
-            <label htmlFor="range-update-end">End Range:</label>
-            <input
-              id="range-update-end"
-              type="number"
-              value={rangeEnd === null ? "" : rangeEnd}
-              onChange={(e) =>
-                setRangeEnd(
-                  e.target.value === "" ? null : Number(e.target.value)
-                )
-              }
-              placeholder="End Range"
-            />
+            <div className="input-row">
+              <div className="input-group">
+                <label htmlFor="range-update-start">Start Range:</label>
+                <input
+                  id="range-update-start"
+                  type="number"
+                  value={rangeStart === null ? "" : rangeStart}
+                  onChange={(e) =>
+                    setRangeStart(e.target.value === "" ? null : Number(e.target.value))
+                  }
+                  placeholder="Start"
+                />
+              </div>
+
+              <div className="input-group">
+                <label htmlFor="range-update-end">End Range:</label>
+                <input
+                  id="range-update-end"
+                  type="number"
+                  value={rangeEnd === null ? "" : rangeEnd}
+                  onChange={(e) =>
+                    setRangeEnd(e.target.value === "" ? null : Number(e.target.value))
+                  }
+                  placeholder="End"
+                />
+              </div>
+            </div>
+
             <label htmlFor="range-update-value">Enter Value:</label>
             <input
               id="range-update-value"

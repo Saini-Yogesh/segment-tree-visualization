@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import "./styles/TreeVisualizerSideBar.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import downloadSVGAsPNG from "./functions/downloadSVGAsPNG/downloadSVGAsPNG";
 import fitSegmentTree from "./functions/FitInTheFrame/fitSegmentTree";
 import { PiArrowElbowLeftDownBold } from "react-icons/pi";
@@ -238,7 +238,6 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         </div>
         <svg id="my-svg" ref={svgRef}></svg>
       </div>
-      <ToastContainer position="top-right" theme="dark" autoClose={2000} />
     </>
   );
 }

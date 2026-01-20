@@ -1,0 +1,67 @@
+/* ===== Top Navigation Tabs ===== */
+.top-tabs {
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  font-size: 20px;
+  padding: 10px 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0 10px;
+}
+
+/* Links */
+.top-tabs a {
+  position: relative;
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+  padding: 4px 2px;
+  transition: color 0.2s ease;
+}
+
+/* Hover */
+.top-tabs a:hover {
+  color: #0e695a;
+}
+
+/* Active underline (no layout shift) */
+.top-tabs a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: #0e695a;
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+
+/* Show underline on active */
+.top-tabs a.active::after {
+  transform: scaleX(1);
+}
+
+/* Active color */
+.top-tabs a.active {
+  color: #0e695a;
+}
+
+@media screen and (max-width: 750px) {
+  .top-tabs {
+    gap: 20px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .top-tabs {
+    gap: 10px;
+  }
+}

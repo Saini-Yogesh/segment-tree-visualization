@@ -1,20 +1,18 @@
-/* Container styling for the input section */
+/* ===== Input Section ===== */
 .input-section {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 14px;
   background-color: #f9f9f9;
   border-radius: 10px;
-  padding: 10px;
-  max-width: 100%;
-  width: 29%;
-  border: solid #ddd 1px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Enable vertical scrolling */
-  height: 91vh;
+  padding: 12px;
+  width: 30%;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Optional: Customize the scrollbar appearance */
+/* Scrollbar */
 .input-section::-webkit-scrollbar {
   width: 4px;
 }
@@ -23,122 +21,146 @@
   background-color: #0e695a;
 }
 
-.input-section input[type="text"] {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid black;
-  font-size: 16px;
+/* ===== Tree Type Options ===== */
+.tree-type-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.input-section select {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white;
-}
-
-.build-buttons {
-  background-color: #0e695a;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-}
-
-.build-buttons:hover {
-  background-color: #0c573e;
-}
-
-.tree-type-options p {
-  text-align: center;
-  color: black;
-  border: none;
-  padding: 1px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: color 0.3s;
-  margin-top: -10px;
-}
-
-.current-tree-type-options {
-  font-weight: 900;
-}
-
-.tree-type-options p:hover {
+.tree-type-label {
+  font-size: 14px;
+  font-weight: 600;
   color: red;
 }
 
-.speed-control {
-  justify-content: center;
-  font-size: 14px;
-}
-.speed-input {
-  margin: 10px 0;
-  width: 100%;
-}
-/* ✅ Style the dynamic speed value */
-.speed-value,
-.speed-label {
-  font-weight: bold;
-  max-width: 50px;
-  text-align: right;
+/* container */
+.tree-type-options {
+  display: flex;
+  gap: 8px;
 }
 
-/* Add some spacing between the slider and text */
-.input-section span {
-  width: 100%;
+/* buttons */
+.tree-type-options button {
+  flex: 1;
+  padding: 6px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+/* hover */
+.tree-type-options button:hover {
+  background: #ececec;
+}
+
+/* active */
+.tree-type-options button.active {
+  background: #e6f4f1;
+  border-color: #0e695a;
+  color: #0e695a;
+}
+
+/* ===== Inputs ===== */
+.input-row {
   display: flex;
-  align-items: center;
   gap: 10px;
 }
 
-input[type="number"],
-input[type="text"],
-button {
-  padding: 10px;
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
   font-size: 14px;
 }
 
+input[type="text"],
+input[type="number"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0e695a;
+}
+
+/* ===== Buttons ===== */
 button {
-  cursor: pointer;
   background-color: #0e695a;
   color: white;
+  padding: 10px;
+  font-size: 15px;
   border: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 button:hover {
   background-color: #055c47;
 }
 
-/* query section  */
-.query-section label {
-  margin-left: 5px;
+/* ===== Speed Control ===== */
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
+.speed-input {
+  flex: 1;
+}
+
+.speed-label,
+.speed-value {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ===== Query Section ===== */
 .query-section {
-  transition: all 0.3s ease-in-out;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-.query-section .query-inputs {
+.query-toggle {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  padding: 8px;
+  background: #f1f1f1;
+  transition: background 0.2s ease;
+}
+
+.query-toggle:hover {
+  background: #e0e0e0;
+}
+
+.query-inputs {
   padding: 10px;
-  background-color: whitesmoke;
-  border: 1px solid black;
-  border-radius: 4px;
-  animation: fadeIn 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: whitesmoke;
 }
 
+/* ===== Animation ===== */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-6px);
   }
   to {
     opacity: 1;
@@ -146,38 +168,10 @@ button:hover {
   }
 }
 
-.query-toggle {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  color: black;
-  padding: 10px 0px;
-  transition: all 0.3s ease;
-}
-
-.query-toggle:hover {
-  background: rgb(166, 164, 164);
-}
-
-.query-inputs {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.query-inputs input,
-.query-inputs button {
-  margin: 5px;
-}
-
+/* ===== Responsive ===== */
 @media screen and (max-width: 1000px) {
   .input-section {
     width: 100%;
     height: auto;
-  }
-  .tree-type-options {
-    width: 100%;
-    justify-content: space-around;
   }
 }

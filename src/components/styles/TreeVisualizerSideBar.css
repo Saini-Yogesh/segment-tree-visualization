@@ -1,63 +1,60 @@
-#my-svg {
-  width: 100%;
-  height: 100%;
-}
-
 #svg-container {
-  position: relative; /* Ensures child elements (buttons) are positioned relative to this container */
+  position: relative;
   width: 100%;
-  height: 660px;
+  height: 600px;
   border-radius: 10px;
   border: 1px solid #0e695a;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-/* ✅ Keep buttons at the top-right corner */
-.buttons-container {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  display: flex;
-  gap: 10px;
+  background: #ffffff;
 }
 
-/* ✅ Modern button styling */
-.buttons-container button {
+#my-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== Buttons Container ===== */
+.buttons-container {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
   gap: 8px;
-  background: rgba(0, 123, 255, 0.8); /* Semi-transparent blue */
+  z-index: 10;
+}
+
+/* ===== Buttons ===== */
+.buttons-container button {
+  background: rgba(0, 123, 255, 0.8);
   color: black;
-  border: none;
-  padding: 8px;
+  border: 1px solid #d1d1d1;
+  padding: 6px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
+  border-radius: 6px;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 35px;
-  font-size: 22px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
-  backdrop-filter: blur(8px); /* ✅ Adds a glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  height: 34px;
+  width: 34px;
+  font-size: 20px;
 }
 
-/* ✅ Improve button icon size */
-.buttons-container button img {
-  width: 20px;
-  height: 20px;
-  transition: transform 0.2s ease-in-out;
-}
-
-/* ✅ Hover effect */
+/* Hover */
 .buttons-container button:hover {
-  background: none; /* Remove background color */
-  transform: scale(1.1); /* Slight zoom effect */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  color: black;
+  background: #e6f4f1;
+  border-color: #0e695a;
+  transform: translateY(-1px);
 }
 
-/* ✅ Hover effect for icons */
-.buttons-container button:hover img {
-  transform: rotate(10deg); /* Slight rotation for interaction */
+/* Active (click feedback) */
+.buttons-container button:active {
+  transform: scale(0.95);
+}
+
+/* Optional tooltip clarity */
+.buttons-container button[title] {
+  position: relative;
 }
