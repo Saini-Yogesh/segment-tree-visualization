@@ -1,4 +1,4 @@
-import TreeVisualizer from "../components/TreeVisualizer";
+import HomePage from "../components/Home";
 import ScrollToTopButton from "../components/functions/ScrollToTopButton/ScrollToTopButton";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
@@ -23,7 +23,7 @@ export default function Home() {
         <h1 style={{ textAlign: "center", padding: "4px" }}>
           Segment Tree Visualizer
         </h1>
-        <TreeVisualizer />
+        <HomePage />
         <ScrollToTopButton />
       </div>
     </>

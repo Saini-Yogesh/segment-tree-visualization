@@ -8,22 +8,18 @@ export function buildSegmentTree(arr, type) {
         if (start === end) {
             tree[node] = Number(arr[start]);
             return;
-        } else {
-            const mid = Math.floor((start + end) / 2);
-            const leftChild = 2 * node + 1;
-            const rightChild = 2 * node + 2;
-
-            build(leftChild, start, mid);
-            build(rightChild, mid + 1, end);
-
-            if (type === "sum") {
-                tree[node] = Number(tree[leftChild]) + Number(tree[rightChild]);
-            } else if (type === "min") {
-                tree[node] = Math.min(Number(tree[leftChild]), Number(tree[rightChild]));
-            } else if (type === "max") {
-                tree[node] = Math.max(Number(tree[leftChild]), Number(tree[rightChild]));
-            }
         }
+
+        const mid = Math.floor((start + end) / 2);
+        const left = 2 * node + 1;
+        const right = 2 * node + 2;
+
+        build(left, start, mid);
+        build(right, mid + 1, end);
+
+        if (type === "sum") tree[node] = tree[left] + tree[right];
+        else if (type === "min") tree[node] = Math.min(tree[left], tree[right]);
+        else tree[node] = Math.max(tree[left], tree[right]);
     }
 
     build(0, 0, n - 1);

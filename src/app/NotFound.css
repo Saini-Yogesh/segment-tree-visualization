@@ -1,0 +1,49 @@
+.nf {
+  min-height: 100vh;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+}
+
+.nf-container {
+  text-align: center;
+}
+
+.nf-code {
+  font-size: 140px;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.nf-text {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 28px;
+}
+
+.nf-home {
+  font-size: 15px;
+  font-weight: 500;
+  color: #2563eb;
+  text-decoration: none;
+  position: relative;
+}
+
+.nf-home::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #2563eb;
+  transition: width 0.25s ease;
+}
+
+.nf-home:hover::after {
+  width: 100%;
+}

@@ -1,4 +1,4 @@
-import { changeNodeAppearance, changePathColor } from "../SegmentTreeD3";
+import { changeNodeAppearance, changePathColor } from "../TreeVisualizerSideBar";
 
 export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeType, speed) {
   return new Promise((resolve) => {  // ✅ Return a promise
@@ -8,18 +8,46 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeTy
       return;
     }
 
+    // ✅ FIX: Proper lazy apply (apply + push + clear)
+    function applyLazy(node, start, end) {
+      if (Number(node.lazy) === 0) return;
+
+      const lazyVal = Number(node.lazy);
+      const curVal = Number(node.value);
+
+      if (treeType === "sum")
+        node.value = curVal + lazyVal * (end - start + 1);
+      else
+        node.value = curVal + lazyVal;
+
+      // ✅ FIX: guard children individually
+      if (node.children?.[0]) {
+        node.children[0].lazy =
+          Number(node.children[0].lazy ?? 0) + lazyVal;
+      }
+      if (node.children?.[1]) {
+        node.children[1].lazy =
+          Number(node.children[1].lazy ?? 0) + lazyVal;
+      }
+
+      node.lazy = 0;
+    }
+
     async function updateNode(node, parent = null) {
       if (!node) return 0;
 
       const [start, end] = node.range
-        ?.replace("[", "")
+        .replace("[", "")
         .replace("]", "")
         .split(",")
         .map(Number);
 
+      // ✅ FIX: Apply lazy correctly before going down
+      applyLazy(node, start, end);
+
       if (start === end && start === Number(index)) {
         // ✅ Highlight node and update value
-        node.value = newValue;
+        node.value = Number(newValue);
 
         // ✅ Change node color and path color (if it has a parent)
         if (parent) changePathColor(parent.range, node.range, "red");
@@ -34,23 +62,28 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeTy
       }
 
       let leftValue = 0, rightValue = 0;
+      const mid = Math.floor((start + end) / 2);
 
       // ✅ Highlight current node and its path from parent
       if (parent) changePathColor(parent.range, node.range, "red");
       changeNodeAppearance(node.range, "yellow", node.value);
       await new Promise((resolve) => setTimeout(resolve, speed)); // ✅ Delay
 
-      if (index <= Math.floor((start + end) / 2)) {
-        leftValue = await updateNode(node.children[0], node); // Left subtree
-        rightValue = node.children[1] ? node.children[1].value : 0; // Keep right value
+      if (index <= mid) {
+        leftValue = await updateNode(node.children[0], node);
+        rightValue = node.children[1]?.value ?? 0;
       } else {
-        leftValue = node.children[0] ? node.children[0].value : 0; // Keep left value
-        rightValue = await updateNode(node.children[1], node); // Right subtree
+        leftValue = node.children[0]?.value ?? 0;
+        rightValue = await updateNode(node.children[1], node);
       }
 
-      if (treeType === "sum") node.value = Number(leftValue) + Number(rightValue);
-      else if (treeType === "min") node.value = Math.min(Number(leftValue), Number(rightValue));
-      else if (treeType === "max") node.value = Math.max(Number(leftValue), Number(rightValue));
+      leftValue = Number(leftValue);
+      rightValue = Number(rightValue);
+
+      if (treeType === "sum") node.value = leftValue + rightValue;
+      else if (treeType === "min") node.value = Math.min(leftValue, rightValue);
+      else if (treeType === "max") node.value = Math.max(leftValue, rightValue);
+
 
       // ✅ Update parent node color and path
       changeNodeAppearance(node.range, "black", node.value);
@@ -64,7 +97,7 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeTy
     }
 
     updateNode(treeData).then(() => {
-      setTreeData((prevTree) => prevTree); // ✅ Prevents full re-render but updates state
+      setTreeData((prevTree) => ({ ...prevTree })); // ✅ FIX: force safe re-render
       resolve();
       return;
     });

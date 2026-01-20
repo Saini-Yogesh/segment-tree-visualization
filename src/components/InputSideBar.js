@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react";
-import "./styles/InputSection.css";
+import "./styles/InputSideBar.css";
 import { toast } from "react-toastify";
 
 export default function InputSection({
@@ -26,9 +26,9 @@ export default function InputSection({
   };
 
   const [index, setIndex] = useState("1"); // For Update Index query
-  const [value, setValue] = useState("10"); // For Update Index value
-  const [rangeStart, setRangeStart] = useState("0"); // For Range Query and Range Update
-  const [rangeEnd, setRangeEnd] = useState("1"); // For Range Query and Range Update
+  const [value, setValue] = useState("1"); // For Update Index value
+  const [rangeStart, setRangeStart] = useState("3"); // For Range Query and Range Update
+  const [rangeEnd, setRangeEnd] = useState("5"); // For Range Query and Range Update
 
   const checkInRangeOrnot = (rangeStart, rangeEnd) => {
     if (
@@ -79,7 +79,7 @@ export default function InputSection({
       toast.error("Invalid range for update!");
       return;
     }
-    onRangeUpdate(rangeStart, rangeEnd, value);
+    onRangeUpdate(rangeStart, rangeEnd, value, treeType, speed);
   };
 
   useEffect(() => {

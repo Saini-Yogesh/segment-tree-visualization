@@ -1,16 +1,16 @@
 "use client"
 import { useState } from "react";
 import { buildSegmentTree } from "./utils/segmentTreeUtils";
-import SegmentTreeD3 from "./SegmentTreeD3";
-import InputSection from "./InputSection";
-import "./styles/TreeVisualizer.css";
+import SegmentTreeD3 from "./TreeVisualizerSideBar";
+import InputSection from "./InputSideBar";
+import "./styles/Home.css";
 import buildHierarchy from "./functions/BuildHierarchy/BuildHierarchy";
 import { handleUpdateIndex } from "./operations/HandleUpdateIndex";
 import { handleRangeQuery } from "./operations/HandleRangeQuery";
 import { handleRangeUpdate } from "./operations/HandleRangeUpdate";
 import { toast } from "react-toastify";
 
-export default function TreeVisualizer() {
+export default function Home() {
   const [treeData, setTreeData] = useState(null);
   const [animationDelay, setAnimationDelay] = useState(800);
 

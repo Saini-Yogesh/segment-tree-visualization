@@ -1,16 +1,18 @@
 "use client"
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import "./styles/SegmentTreeD3.css";
+import "./styles/TreeVisualizerSideBar.css";
 import { ToastContainer, toast } from "react-toastify";
 import downloadSVGAsPNG from "./functions/downloadSVGAsPNG/downloadSVGAsPNG";
 import fitSegmentTree from "./functions/FitInTheFrame/fitSegmentTree";
-import DownloadIcon from "./functions/downloadSVGAsPNG/download-solid.svg";
-import FitIcon from "./functions/FitInTheFrame/fit-solid.svg";
-import Image from "next/image";
+import { PiArrowElbowLeftDownBold } from "react-icons/pi";
+import { FaBezierCurve } from "react-icons/fa";
+import { FaDownload } from "react-icons/fa6";
+import { MdOutlineFitScreen } from "react-icons/md";
 
 export default function SegmentTreeD3({ data, animationDelay }) {
   const svgRef = useRef();
+  const [LINK_MODE, setLinkMode] = useState("curve");
 
   useEffect(() => {
     if (!data) return;
@@ -50,18 +52,29 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       `range-${range.replace(/[\[\],\s]/g, "-")}`;
 
     const renderLink = (source, target) => {
+      let d;
+
+      if (LINK_MODE === "curve") {
+        d = d3
+          .linkVertical()
+          .x(d => d.x)
+          .y(d => d.y)({
+            source: { x: source.x, y: source.y },
+            target: { x: target.x, y: target.y },
+          });
+      } else {
+        const midY = (source.y + target.y) / 2;
+        d =
+          `M ${source.x},${source.y}
+         V ${midY}
+         H ${target.x}
+         V ${target.y}
+        `;
+      }
+
       linkLayer
         .append("path")
-        .attr(
-          "d",
-          d3
-            .linkVertical()
-            .x((d) => d.x)
-            .y((d) => d.y)({
-              source: { x: source.x, y: source.y },
-              target: { x: target.x, y: target.y },
-            })
-        )
+        .attr("d", d)
         .attr(
           "class",
           `link-${sanitizeClassName(source.data.range)}-${sanitizeClassName(
@@ -105,6 +118,16 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         .attr("text-anchor", "middle")
         .style("fill", "white")
         .style("font-size", "16px");
+
+      // ✅ lazy (bottom)
+      // nodeGroup
+      //   .append("text")
+      //   .text(`L:${node.data.lazy}`)
+      //   .attr("class", "node-lazy")
+      //   .attr("y", nodeRadius + 14)
+      //   .attr("text-anchor", "middle")
+      //   .style("fill", "red")
+      //   .style("font-size", "12px");
     };
 
     const updateNodeValueOnBacktrack = (node) => {
@@ -191,7 +214,7 @@ export default function SegmentTreeD3({ data, animationDelay }) {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     buildTreeAnimation(root);
-  }, [data]);
+  }, [data, LINK_MODE]);
 
   return (
     <>
@@ -199,10 +222,18 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         {/* ✅ Buttons container for absolute positioning */}
         <div className="buttons-container">
           <button onClick={fitSegmentTree}>
-            <Image src={FitIcon} alt="Fit Tree" className="icon" /> Fit in frame
+            <MdOutlineFitScreen />
           </button>
           <button onClick={downloadSVGAsPNG}>
-            <Image src={DownloadIcon} alt="Download PNG" className="icon" /> Download as PNG
+            <FaDownload />
+          </button>
+          <button
+            onClick={() =>
+              setLinkMode(m => (m === "curve" ? "elbow" : "curve"))
+            }
+            title={LINK_MODE === "curve" ? "Switch to Elbow View" : "Switch to Curve View"}
+          >
+            {LINK_MODE === "curve" ? <PiArrowElbowLeftDownBold /> : <FaBezierCurve />}
           </button>
         </div>
         <svg id="my-svg" ref={svgRef}></svg>

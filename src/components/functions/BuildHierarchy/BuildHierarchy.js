@@ -12,6 +12,7 @@ const buildHierarchy = (tree, ranges, nodeIndex) => {
     value: `${tree[nodeIndex]}`,
     range: `[${start}, ${end}]`,
     children: [],
+    lazy: 0,
   };
 
   // Recursively build left and right children
