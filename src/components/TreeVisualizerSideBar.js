@@ -100,10 +100,15 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         .attr("stroke", "white")
         .attr("stroke-width", 2);
 
+      const [l, r] = node.data.range
+        .replace("[", "")
+        .replace("]", "")
+        .split(",");
+
       // Display range above the node
       nodeGroup
         .append("text")
-        .text(`${node.data.range}`)
+        .text(`[${l}...${r}]`)
         .attr("y", -nodeRadius - 12)
         .attr("text-anchor", "middle")
         .style("fill", "black")

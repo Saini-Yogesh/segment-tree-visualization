@@ -1,0 +1,66 @@
+/* =========================
+   CODE CONTAINER
+   ========================= */
+
+.code-box {
+  position: relative;
+  margin: 24px 0;
+}
+
+/* =========================
+   COPY ICON (TOP-RIGHT)
+   ========================= */
+
+.copy-icon {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 2;
+
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.copy-icon:hover {
+  color: #e5e7eb;
+}
+
+/* =========================
+   CODE BLOCK
+   ========================= */
+
+.hljs {
+  border-radius: 2px;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
+  font-size: 16px;
+  line-height: 1.45;
+  letter-spacing: 0.3px;
+
+  background: #1f2933; /* very close to your image */
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+  overflow-x: auto;
+}
+
+/* Remove extra background from highlight.js */
+.hljs code {
+  background: none;
+}
+
+/* Scrollbar */
+.hljs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hljs::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 4px;
+}

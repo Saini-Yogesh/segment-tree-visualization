@@ -1,19 +1,18 @@
 'use client'
 
 import './About.css'
-import Image from 'next/image'
 import Link from 'next/link'
 import { FaEnvelope, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa'
 
 export default function About() {
   return (
-    <section className="about">
+    <div className='ab'>
+      <div className="about">
 
-      <h2 className="section-title ">
-        About The Project
-      </h2>
+        <h2 className="section-title-1">
+          About Project
+        </h2>
 
-      <div className="project-aim">
         <span className="project-aim-tag">PROJECT AIM</span>
 
         <h2 className="project-aim-heading">
@@ -81,13 +80,11 @@ export default function About() {
             View Project Repository →
           </a>
         </div>
-      </div>
 
-      <h2 className="section-title" style={{ marginTop: "40px" }}>
-        About Me(Developer)
-      </h2>
+        <h2 className="section-title-2">
+          About Me(Developer)
+        </h2>
 
-      <div className="about-wrapper">
         <div className="about-content">
           <span className="about-tag">ABOUT ME</span>
 
@@ -149,20 +146,10 @@ export default function About() {
           </div>
         </div>
 
-        <div className="about-image">
-          <Image
-            src="/self_image.jpg"
-            alt="Yogesh Saini"
-            width={350}
-            height={350}
-            priority
-          />
+        <div className="about-footer">
+          © {new Date().getFullYear()} Yogesh Saini · All rights reserved
         </div>
       </div>
-
-      <div className="about-footer">
-        © {new Date().getFullYear()} Yogesh Saini · All rights reserved
-      </div>
-    </section>
+    </div>
   )
 }
