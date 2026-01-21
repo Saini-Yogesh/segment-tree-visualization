@@ -16,10 +16,10 @@ export default function TopTabs() {
             </Link>
 
             <Link
-                href="/lazy-segment-tree"
-                className={pathname === "/lazy-segment-tree" ? "active" : ""}
+                href="/lazy-propagation-in-segment-tree"
+                className={pathname === "/lazy-propagation-in-segment-tree" ? "active" : ""}
             >
-                Lazy Segment Tree
+                Lazy Propagation
             </Link>
 
             <Link
@@ -33,7 +33,7 @@ export default function TopTabs() {
                 href="/about"
                 className={pathname === "/about" ? "active" : ""}
             >
-                About me
+                About
             </Link>
         </div>
     );

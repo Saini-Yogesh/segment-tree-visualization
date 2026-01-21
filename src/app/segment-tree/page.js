@@ -1,7 +1,8 @@
 "use client";
+
 import HighlightedCode from "../../components/functions/HighlightedCode/HighlightedCode";
-import "./SegmentTree.css";
 import { AllCodes } from "./AllCodes.js";
+import '@/components/styles/CommonSegmentTree.css'
 
 export default function SegmentTreePage() {
   return (
@@ -28,7 +29,7 @@ export default function SegmentTreePage() {
         <p className="st-text">
           Consider an array:{" "}
           <code className="st-inline-code">
-            arr = [a&#8321;, a&#8322;, a&#8323;, a&#8324;, ..., a&#8345;]
+            arr = [a&#8321;, a&#8322;, a&#8323;, a&#8324;, …, a&#8345;]
           </code>
         </p>
 
@@ -48,20 +49,20 @@ export default function SegmentTreePage() {
 
         <p className="st-text">
           Using a prefix sum array, we can answer range sum queries in
-          <strong> O(1)</strong> time. However, when an update happens:
+          <code className="st-inline-code"> O(1)</code> time. However, when an update happens:
         </p>
 
         <ul className="st-list">
           <li>The array value changes</li>
           <li>The prefix sum array must be rebuilt</li>
           <li>
-            This rebuild takes <strong>O(n)</strong> time
+            This rebuild takes <code className="st-inline-code">O(n)</code> time
           </li>
         </ul>
 
         <p className="st-text">
           If there are many update queries, the total time complexity becomes
-          <strong> O(n²)</strong>, which is not feasible for large inputs (e.g.,
+          <code className="st-inline-code"> O(n²)</code>, which is not feasible for large inputs (e.g.,
           n = 10⁶).
         </p>
 
@@ -77,10 +78,10 @@ export default function SegmentTreePage() {
 
         <ul className="st-list">
           <li>
-            Answering range queries in <strong>O(log n)</strong>
+            Answering range queries in <code className="st-inline-code">O(log n)</code>
           </li>
           <li>
-            Handling updates in <strong>O(log n)</strong>
+            Handling updates in <code className="st-inline-code">O(log n)</code>
           </li>
         </ul>
 
@@ -88,7 +89,7 @@ export default function SegmentTreePage() {
 
         <ul className="st-list">
           <li>
-            Total time complexity becomes <strong>O(q log n)</strong>
+            Total time complexity becomes <code className="st-inline-code">O(q log n)</code>
           </li>
           <li>This is efficient and feasible for large inputs</li>
         </ul>
@@ -103,7 +104,7 @@ export default function SegmentTreePage() {
           </li>
         </ul>
 
-        <p className="st-closing">
+        <p className="st-highlight">
           That is why Segment Trees are widely used in competitive programming
           and high-performance systems.
         </p>
@@ -128,8 +129,8 @@ export default function SegmentTreePage() {
 
         <p className="st-text">
           These segments can be viewed as forming a binary tree. The root of
-          this tree represents the segment
-          <code className="st-inline-code"> a[0 … n − 1]</code>, and each
+          this tree represents the segment <br />
+          <code className="st-inline-code"> a[0 … n - 1]</code>, and each
           internal node has exactly two children. This is why the data structure
           is called a<strong> Segment Tree</strong>, even though in most
           implementations the tree is not constructed explicitly.
@@ -152,7 +153,7 @@ export default function SegmentTreePage() {
 
         {/* Height explanation */}
         <p className="st-text st-highlight">
-          The height of a Segment Tree is <strong>O(log n)</strong>, because
+          The height of a Segment Tree is <code className="st-inline-code">O(log n)</code>, because
           when moving from the root to the leaves, the size of the segment is
           reduced by approximately half at each level.
         </p>
@@ -208,7 +209,7 @@ export default function SegmentTreePage() {
 
         <p className="st-highlight">
           The time complexity of building a Segment Tree is
-          <strong> O(n)</strong>, assuming the merge operation takes constant
+          <code className="st-inline-code"> O(n)</code>, assuming the merge operation takes constant
           time, since each node is processed exactly once.
         </p>
 
@@ -237,10 +238,10 @@ export default function SegmentTreePage() {
           </li>
         </ul>
 
-        <p className="st-text">
+        <p className="st-highlight">
           Since only a limited number of nodes are visited at each level and the
-          height of the tree is <strong>O(log n)</strong>, the total time
-          complexity is <strong>O(log n)</strong>.
+          height of the tree is <code className="st-inline-code">O(log n)</code>, the total time
+          complexity is <code className="st-inline-code">O(log n)</code>.
         </p>
 
         <h2 className="st-heading">Update Queries</h2>
@@ -258,7 +259,7 @@ export default function SegmentTreePage() {
 
         <p className="st-highlight">
           Since only one node per level is updated, the time complexity of an
-          update query is also <strong>O(log n)</strong>.
+          update query is also <code className="st-inline-code">O(log n)</code>.
         </p>
 
         <h1 className="st-title">Implementation</h1>
@@ -268,9 +269,9 @@ export default function SegmentTreePage() {
           to use an array-based representation, where the tree is stored in a
           flat array. This method is efficient in terms of both time and space.
           if want to know why we use array to represent segment tree please
-          refer to the
+          refer to the{" "}
           <a href="https://cp-algorithms.com/data_structures/segment_tree.html#implementation">
-            cp-algorithms
+            CP-Algorithms
           </a>
           .
         </p>
@@ -293,8 +294,8 @@ export default function SegmentTreePage() {
             <code className="st-inline-code">2 * i + 1</code>
           </li>
         </ul>
-        <p className="st-text">
-          This structure allows for efficient traversal and updates without the
+        <p className="st-highlight">
+          This <strong>Array-Based Representation</strong> allows for efficient traversal and updates without the
           need for explicit pointers.
         </p>
 
@@ -431,10 +432,12 @@ export default function SegmentTreePage() {
             While returning from recursion, each ancestor node is recomputed to
             maintain correctness of the tree. For a sum segment tree, the parent
             value is updated as:
+            <br />
             <code className="st-inline-code">
               seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2]
             </code>
-            . This ensures that all affected ranges reflect the updated index.
+            <br />
+            This ensures that all affected ranges reflect the updated index.
           </p>
         </div>
 
@@ -550,7 +553,7 @@ export default function SegmentTreePage() {
             <br />
             <span className="st-muted" style={{ display: "block", marginTop: "6px" }}>
               <code style={{ color: "#d9534f", fontWeight: "600" }}> 📝 Note:-</code> If this link does not open, navigate via
-              <strong> Codeforces → EDU → Courses → ITMO Academy: Pilot Course → Segment Tree, Part 1.</strong>
+              <strong> Codeforces → EDU → Courses → ITMO Academy: Pilot Course → Segment Tree, Part 1</strong>
             </span>
 
           </li>

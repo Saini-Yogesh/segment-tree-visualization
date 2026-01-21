@@ -1,29 +1,29 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
+import hljs from 'highlight.js/lib/core'
+import cpp from 'highlight.js/lib/languages/cpp'
 import 'highlight.js/styles/github-dark.css'
-import './HighlightedCode.css'
+import '../../styles/HighlightedCode.css'
 import { FaCheck } from 'react-icons/fa6'
 import { PiCopyDuotone } from 'react-icons/pi'
+
+hljs.registerLanguage('cpp', cpp)
 
 export default function HighlightedCode({ code, language = 'cpp' }) {
     const codeRef = useRef(null)
     const [copied, setCopied] = useState(false)
 
-    useEffect(() => {
-        const highlight = async () => {
-            const core = await import('highlight.js/lib/core')
-            const cpp = await import('highlight.js/lib/languages/cpp')
+    useLayoutEffect(() => {
+        if (!codeRef.current) return
 
-            const hljs = core.default
-            hljs.registerLanguage('cpp', cpp.default)
+        const el = codeRef.current
+        el.textContent = code
 
-            if (codeRef.current) {
-                codeRef.current.textContent = code
-                hljs.highlightElement(codeRef.current)
-            }
-        }
+        // 🔑 remove previous highlight.js state
+        el.removeAttribute('data-highlighted')
+        el.classList.remove('hljs')
 
-        highlight()
+        hljs.highlightElement(el)
     }, [code])
 
     const handleCopy = async () => {
@@ -39,7 +39,7 @@ export default function HighlightedCode({ code, language = 'cpp' }) {
             </button>
 
             <pre>
-                <code ref={codeRef} className={`language-${language}`} />
+                <code ref={codeRef} className={`hljs language-${language}`} />
             </pre>
         </div>
     )

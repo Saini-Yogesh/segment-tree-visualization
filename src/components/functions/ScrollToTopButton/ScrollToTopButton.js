@@ -1,19 +1,15 @@
-"use client"
-import React, { useState, useEffect } from "react";
-import "./ScrollToTopButtonCSS.css";
-import UpArrowIcon from "./arrowUpSolid.svg"
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+import { FaArrowUp } from "react-icons/fa6";
+import "../../styles/ScrollToTopButton.css";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 50) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", toggleVisibility);
@@ -27,14 +23,17 @@ const ScrollToTopButton = () => {
     });
   };
 
+  if (!isVisible) return null;
+
   return (
-    <>
-      {isVisible && (
-        <p onClick={scrollToTop} >
-          <Image className="scroll-to-top-btn" src={UpArrowIcon} alt="Scroll to top" width={32} height={32} />
-        </p>
-      )}
-    </>
+    <button
+      className="scroll-top-btn"
+      onClick={scrollToTop}
+      aria-label="Scroll to top"
+    >
+      <FaArrowUp className="scroll-icon" />
+      <span className="scroll-text">Scroll to top</span>
+    </button>
   );
 };
 

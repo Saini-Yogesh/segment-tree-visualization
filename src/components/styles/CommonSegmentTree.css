@@ -41,13 +41,6 @@
   margin-bottom: 8px;
 }
 
-.st-closing {
-  font-size: 18px;
-  font-weight: 500;
-  color: #111827;
-  margin-top: 24px;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .st-container {
@@ -85,8 +78,8 @@
 }
 
 .st-image {
-  max-width: 100%; /* responsive */
-  height: auto; /* keep aspect ratio */
+  max-width: 100%; 
+  height: auto;
   display: block;
 }
 

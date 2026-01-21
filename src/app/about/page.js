@@ -1,8 +1,7 @@
 'use client'
-
-import './About.css'
 import Link from 'next/link'
 import { FaEnvelope, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa'
+import '@/components/styles/About.css'
 
 export default function About() {
   return (

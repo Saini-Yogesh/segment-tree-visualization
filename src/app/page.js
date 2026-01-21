@@ -1,5 +1,4 @@
 import HomePage from "../components/Home";
-import ScrollToTopButton from "../components/functions/ScrollToTopButton/ScrollToTopButton";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -33,7 +32,6 @@ export default function Home() {
           Segment Tree Visualizer
         </h1>
         <HomePage />
-        <ScrollToTopButton />
       </div>
     </>
   );
