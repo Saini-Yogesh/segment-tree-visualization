@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 import { FaEnvelope, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa'
 import '@/components/styles/About.css'
 
@@ -28,7 +27,7 @@ export default function About() {
           <li>
             When I started learning segment trees, I initially struggled to
             understand how queries, updates, and tree traversal work internally.
-            Dry runs were time-consuming and error-prone.
+            Manual dry runs were time-consuming and often error-prone.
           </li>
 
           <li>
@@ -39,8 +38,8 @@ export default function About() {
           </li>
 
           <li>
-            Lazy-propagated segment trees are even harder to grasp without proper
-            visualization, and testing multiple cases manually wastes a lot of time.
+            Segment trees with lazy propagation are even harder to grasp without proper
+            visualization., and testing multiple cases manually wastes a lot of time.
             I realized many learners face the same issue.
           </li>
 
@@ -81,7 +80,7 @@ export default function About() {
         </div>
 
         <h2 className="section-title-2">
-          About Me(Developer)
+          About Me (Developer)
         </h2>
 
         <div className="about-content">
@@ -97,7 +96,7 @@ export default function About() {
 
           <p className="about-description">
             I’m a full-stack developer with strong expertise in
-            <strong> React, Node.js, MongoDB</strong>. I build scalable,
+            <strong> MERN Stack</strong>. I build scalable,
             high-performance web applications with clean architecture
             and intuitive user experiences.
           </p>
@@ -118,30 +117,33 @@ export default function About() {
           </p>
 
           <div className="about-actions">
-            <Link href="mailto:yogesh.saini4002@gmail.com" aria-label="Email">
+            <a href="mailto:yogesh.saini4002@gmail.com" aria-label="Email">
               <FaEnvelope />
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://www.linkedin.com/in/yogesh-saini-203153265/"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="LinkedIn"
             >
               <FaLinkedin />
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://github.com/Saini-Yogesh"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="GitHub"
             >
               <FaGithub />
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://saini-yogesh.github.io/Portfolio/"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="Portfolio"
             >
               <FaGlobe />
-            </Link>
+            </a>
           </div>
         </div>
 

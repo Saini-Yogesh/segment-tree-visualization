@@ -62,7 +62,7 @@ export default function SegmentTreePage() {
 
         <p className="st-text">
           If there are many update queries, the total time complexity becomes
-          <code className="st-inline-code"> O(n²)</code>, which is not feasible for large inputs (e.g.,
+          <code className="st-inline-code">O(q · n)</code>, which is not feasible for large inputs (e.g.,
           n = 10⁶).
         </p>
 
@@ -281,17 +281,17 @@ export default function SegmentTreePage() {
         <p className="st-text">
           In an array-based representation, the Segment Tree is stored in an
           array of size <code className="st-inline-code">4 * n</code> to
-          accommodate all nodes. The root node is at index 1, and for any node
+          accommodate all nodes. The root node is at index 0, and for any node
           at index <code className="st-inline-code">i</code>:
         </p>
         <ul className="st-list">
           <li>
             The left child is at index{" "}
-            <code className="st-inline-code">2 * i</code>
+            <code className="st-inline-code">2 * i + 1</code>
           </li>
           <li>
             The right child is at index{" "}
-            <code className="st-inline-code">2 * i + 1</code>
+            <code className="st-inline-code">2 * i + 2</code>
           </li>
         </ul>
         <p className="st-highlight">
@@ -299,34 +299,64 @@ export default function SegmentTreePage() {
           need for explicit pointers.
         </p>
 
-        <h2 className="st-heading">Segment Tree Build Function</h2>
+        <h2 className="st-heading">📌 Variable Notation</h2>
+
+        <ul className="st-list">
+          <li>
+            <code className="st-inline-code">idx</code> → index of the current node in the
+            segment tree array
+          </li>
+          <li>
+            <code className="st-inline-code">l</code> → left boundary of the segment
+            represented by the current node
+          </li>
+          <li>
+            <code className="st-inline-code">r</code> → right boundary of the segment
+            represented by the current node
+          </li>
+          <li>
+            <code className="st-inline-code">ql</code> → left boundary of the query update
+          </li>
+          <li>
+            <code className="st-inline-code">qr</code> → right boundary of the query update
+          </li>
+          <li>
+            <code className="st-inline-code">pos</code> → index of the element for a point
+            update
+          </li>
+          <li>
+            <code className="st-inline-code">val</code> → value to be added during a point update
+          </li>
+        </ul>
+
+        <h2 className="st-heading">Build Function</h2>
         <HighlightedCode code={AllCodes.buildCode} language="cpp" />
 
         <p className="st-text">
           The <code className="st-inline-code">build</code> function constructs
           the segment tree using a recursive <strong>divide-and-conquer</strong>{" "}
           strategy. It takes the current segment tree index{" "}
-          <code className="st-inline-code">ind</code>, the array range{" "}
-          <code className="st-inline-code">[low, high]</code>, and the input
+          <code className="st-inline-code">idx</code>, the array range{" "}
+          <code className="st-inline-code">[l, r]</code>, and the input
           array <code className="st-inline-code">arr</code>.
         </p>
 
         <p className="st-text">
-          When <code className="st-inline-code">low == high</code>, the
+          When <code className="st-inline-code">l == r</code>, the
           recursion reaches a <strong>leaf node</strong>, representing a single
           element of the array. At this point, the value{" "}
-          <code className="st-inline-code">arr[low]</code> is directly stored in{" "}
-          <code className="st-inline-code">seg[ind]</code>.
+          <code className="st-inline-code">arr[l]</code> is directly stored in{" "}
+          <code className="st-inline-code">seg[idx]</code>.
         </p>
 
         <p className="st-text">
           Otherwise, the current range is split at{" "}
           <code className="st-inline-code">mid</code> into two subranges:
-          <code className="st-inline-code">[low, mid]</code> and{" "}
-          <code className="st-inline-code">[mid + 1, high]</code>. The function
+          <code className="st-inline-code">[l, mid]</code> and{" "}
+          <code className="st-inline-code">[mid + 1, r]</code>. The function
           then recursively builds the left child at{" "}
-          <code className="st-inline-code">2 * ind + 1</code> and the right
-          child at <code className="st-inline-code">2 * ind + 2</code>.
+          <code className="st-inline-code">2 * idx + 1</code> and the right
+          child at <code className="st-inline-code">2 * idx + 2</code>.
         </p>
 
         <div className="st-highlight">
@@ -335,22 +365,22 @@ export default function SegmentTreePage() {
             their values. In this implementation, the aggregation operation is
             <strong> sum</strong>:
             <code className="st-inline-code">
-              seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2]
+              seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2]
             </code>
             . This process continues upward until the root node is built.
           </p>
         </div>
 
-        <h2 className="st-heading">Range Sum Query</h2>
+        <h2 className="st-heading">Range Sum Query Function</h2>
         <HighlightedCode code={AllCodes.rangeSumQueryCode} language="cpp" />
 
         <p className="st-text">
           The <code className="st-inline-code">rangeSumQuery</code> function is
           used to compute the sum of elements within a given query range{" "}
-          <code className="st-inline-code">[l, r]</code> using the segment tree.
+          <code className="st-inline-code">[ql, qr]</code> using the segment tree.
           It operates on a node at index{" "}
-          <code className="st-inline-code">ind</code> representing the segment{" "}
-          <code className="st-inline-code">[low, high]</code>.
+          <code className="st-inline-code">idx</code> representing the segment{" "}
+          <code className="st-inline-code">[l, r]</code>.
         </p>
 
         <p className="st-text">
@@ -361,19 +391,19 @@ export default function SegmentTreePage() {
         <ul className="st-list">
           <li>
             <strong>No Overlap:</strong> If the segment{" "}
-            <code className="st-inline-code">[low, high]</code> lies completely
+            <code className="st-inline-code">[l, r]</code> lies completely
             outside the query range{" "}
-            <code className="st-inline-code">[l, r]</code>, the function returns{" "}
+            <code className="st-inline-code">[ql, qr]</code>, the function returns{" "}
             <code className="st-inline-code">0</code>, since it contributes
             nothing to the sum.
           </li>
 
           <li>
             <strong>Complete Overlap:</strong> If the segment{" "}
-            <code className="st-inline-code">[low, high]</code> is fully
+            <code className="st-inline-code">[l, r]</code> is fully
             contained within the query range{" "}
-            <code className="st-inline-code">[l, r]</code>, the precomputed
-            value <code className="st-inline-code">seg[ind]</code> is returned
+            <code className="st-inline-code">[ql, qr]</code>, the precomputed
+            value <code className="st-inline-code">seg[idx]</code> is returned
             directly. This avoids unnecessary recursion.
           </li>
 
@@ -381,8 +411,8 @@ export default function SegmentTreePage() {
             <strong>Partial Overlap:</strong> If the segment is partially inside
             and partially outside the query range, the segment is divided at{" "}
             <code className="st-inline-code">mid</code> into two halves:
-            <code className="st-inline-code">[low, mid]</code> and{" "}
-            <code className="st-inline-code">[mid + 1, high]</code>. The query
+            <code className="st-inline-code">[l, mid]</code> and{" "}
+            <code className="st-inline-code">[mid + 1, r]</code>. The query
             is executed recursively on both children, and the final result is
             the sum of the left and right subqueries.
           </li>
@@ -396,7 +426,7 @@ export default function SegmentTreePage() {
           </p>
         </div>
 
-        <h2 className="st-heading">Point Update</h2>
+        <h2 className="st-heading">Point Update Function</h2>
         <HighlightedCode code={AllCodes.pointUpdateCode} language="cpp" />
 
         <p className="st-text">
@@ -405,25 +435,25 @@ export default function SegmentTreePage() {
           in the segment tree. It takes five parameters: the target{" "}
           <code className="st-inline-code">index</code>, the new value{" "}
           <code className="st-inline-code">val</code>, the segment tree index{" "}
-          <code className="st-inline-code">ind</code>, and the segment range{" "}
-          <code className="st-inline-code">[low, high]</code>.
+          <code className="st-inline-code">idx</code>, and the segment range{" "}
+          <code className="st-inline-code">[l, r]</code>.
         </p>
 
         <p className="st-text">
           The update process follows a binary-search–like traversal. At each
           recursive step, the current segment{" "}
-          <code className="st-inline-code">[low, high]</code> is divided at{" "}
+          <code className="st-inline-code">[l, r]</code> is divided at{" "}
           <code className="st-inline-code">mid</code> to determine whether the
           target index lies in the left subtree{" "}
-          <code className="st-inline-code">[low, mid]</code> or the right
-          subtree <code className="st-inline-code">[mid + 1, high]</code>.
+          <code className="st-inline-code">[l, mid]</code> or the right
+          subtree <code className="st-inline-code">[mid + 1, r]</code>.
         </p>
 
         <p className="st-text">
           This process continues recursively until{" "}
-          <code className="st-inline-code">low == high</code>, which represents
-          a<strong> leaf node</strong>. This node corresponds exactly to the
-          update index, and its value is replaced with{" "}
+          <code className="st-inline-code">l === r</code>, which represents a{" "}
+          <strong>leaf node</strong>. This node corresponds exactly to the update index,
+          and its value is increased by{" "}
           <code className="st-inline-code">val</code>.
         </p>
 
@@ -434,7 +464,7 @@ export default function SegmentTreePage() {
             value is updated as:
             <br />
             <code className="st-inline-code">
-              seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2]
+              seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2]
             </code>
             <br />
             This ensures that all affected ranges reflect the updated index.
@@ -552,7 +582,7 @@ export default function SegmentTreePage() {
             – Introduction to classic segment trees, including build, range queries, and point updates.
             <br />
             <span className="st-muted" style={{ display: "block", marginTop: "6px" }}>
-              <code style={{ color: "#d9534f", fontWeight: "600" }}> 📝 Note:-</code> If this link does not open, navigate via
+              <code style={{ color: "#d9534f", fontWeight: "600" }}>📌  Note:-</code> If this link does not open, navigate via
               <strong> Codeforces → EDU → Courses → ITMO Academy: Pilot Course → Segment Tree, Part 1</strong>
             </span>
 

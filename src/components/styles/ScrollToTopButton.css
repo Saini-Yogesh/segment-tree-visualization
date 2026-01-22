@@ -1,68 +1,37 @@
+/* ===== Scroll To Top Button ===== */
 .scroll-top-btn {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  height: 42px;
-  width: 42px; 
-  background: #ffffff;
-  color: #2563eb;
-  border: 2px solid #2563eb;
-  border-radius: 999px;
-  cursor: pointer;
-  z-index: 1000;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  bottom: 80px;
+  right: 10px;
+  z-index: 9999;
+
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition:
-    width 0.35s ease,
-    background-color 0.25s ease;
-}
+  gap: 8px;
 
-/* icon */
-.scroll-icon {
-  font-size: 16px;
-  position: absolute; /* key fix */
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* hidden text */
-.scroll-text {
-  white-space: nowrap;
-  font-size: 16px;
-  font-weight: 600;
-
-  opacity: 0;
-  transform: translateX(12px);
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
-}
-
-.scroll-text {
-  margin-left: 6px;
-}
-
-/* hover → expand */
-.scroll-top-btn:hover {
-  width: 150px;
-  background-color: #2563eb;
+  padding: 10px 16px;
+  background: #1f2937;
   color: #ffffff;
 
-  justify-content: flex-start;
-  padding-left: 14px;
+  border: none;
+  border-radius: 999px;
+
+  cursor: pointer;
+  font-family: inherit;
 }
 
-/* move icon back into flow */
-.scroll-top-btn:hover .scroll-icon {
-  position: static;
-  transform: none;
+/* ===== Arrow Icon ===== */
+.scroll-icon {
+  font-size: 18px;
 }
 
-/* reveal text */
-.scroll-top-btn:hover .scroll-text {
-  opacity: 1;
-  transform: translateX(0);
+/* ===== Text ===== */
+.scroll-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ===== Hover Effect ===== */
+.scroll-top-btn:hover {
+  background: #111827;
 }

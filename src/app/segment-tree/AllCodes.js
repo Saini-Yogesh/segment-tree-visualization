@@ -1,130 +1,137 @@
 export const AllCodes = {
-    completeCode:
-        `#include <bits/stdc++.h>
+    completeCode: `#include <bits/stdc++.h>
 using namespace std;
 
 class SGTree
 {
 public:
     vector<int> seg;
+
     SGTree(int n)
     {
-        seg.resize(4 * n, INT_MAX);
+        seg.assign(4 * n, 0);
     }
 
-    void build(int ind, int low, int high, vector<int> &arr)
-    {
-        if (low == high)
+    // Build the segment tree
+    void build(int idx, int l, int r, const vector<int> &arr)
         {
-            seg[ind] = arr[low];
+        if (l == r)
+        {
+            seg[idx] = arr[l];
             return;
         }
-        int mid = (low + high) / 2;
 
-        build(2 * ind + 1, low, mid, arr);
-        build(2 * ind + 2, mid + 1, high, arr);
+        int mid = (l + r) / 2;
 
-        seg[ind] = min(seg[2 * ind + 1], seg[2 * ind + 2]);
+        build(2 * idx + 1, l, mid, arr);
+        build(2 * idx + 2, mid + 1, r, arr);
+
+        seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
     }
 
-    void update(int index, int val, int low, int high, int ind)
-    {
-        if (low == high)
+    // Point update
+    void pointUpdate(int idx, int l, int r, int pos, int val)
         {
-            seg[ind] = val;
+        if (l == r)
+        {
+            seg[idx] += val;
             return;
         }
-        int mid = (low + high) / 2;
 
-        if (index <= mid)
-            update(index, val, low, mid, 2 * ind + 1);
+        int mid = (l + r) / 2;
+
+        if (pos <= mid)
+            pointUpdate(2 * idx + 1, l, mid, pos, val);
         else
-            update(index, val, mid + 1, high, 2 * ind + 2);
+            pointUpdate(2 * idx + 2, mid + 1, r, pos, val);
 
-        seg[ind] = min(seg[2 * ind + 1], seg[2 * ind + 2]);
+        seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
     }
 
-    int query(int ind, int low, int high, int l, int r)
-    {
-        if (r < low || high < l)
-            return INT_MAX;
+    // Range sum query
+    int query(int idx, int l, int r, int ql, int qr)
+        {
+        if (qr < l || r < ql)
+            return 0;
 
-        if (low >= l && high <= r)
-            return seg[ind];
+        if (ql <= l && r <= qr)
+            return seg[idx];
 
-        int mid = (low + high) / 2;
+        int mid = (l + r) / 2;
 
-        int left = query(2 * ind + 1, low, mid, l, r);
-        int right = query(2 * ind + 2, mid + 1, high, l, r);
-        return min(left, right);
-    }
+        int left = query(2 * idx + 1, l, mid, ql, qr);
+        int right = query(2 * idx + 2, mid + 1, r, ql, qr);
 
-    void printSWTree()
-    {
-        for (auto it : seg)
-            cout << it << " ";
-        cout << endl;
+        return left + right;
     }
 };
 
 int main()
 {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for (auto &it : arr)
-        cin >> it;
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    int n = arr.size();
 
-    SGTree seg(n);
-    seg.build(0, 0, n - 1, arr);
-    seg.printSWTree();
+    SGTree st(n);
+    st.build(0, 0, n - 1, arr);
+
+    // Initial sum
+    cout << st.query(0, 0, n - 1, 0, 4) << endl; // 15
+
+    // Point update: add 2 at index 3
+    st.pointUpdate(0, 0, n - 1, 3, 2);
+    cout << st.query(0, 0, n - 1, 0, 4) << endl; // 17
 
     return 0;
 }`,
-    buildCode:
-        `void build(int ind, int low, int high, vector<int> arr)
+    buildCode: `// Build the segment tree
+void build(int idx, int l, int r, const vector<int> &arr)
 {
-    if (low == high)
+    if (l == r)
     {
-        seg[ind] = arr[low];
+        seg[idx] = arr[l];
         return;
     }
-    int mid = (low + high) / 2;
-    build(2 * ind + 1, low, mid, arr);
-    build(2 * ind + 2, mid + 1, high, arr);
-    seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2];
+
+    int mid = (l + r) / 2;
+
+    build(2 * idx + 1, l, mid, arr);
+    build(2 * idx + 2, mid + 1, r, arr);
+
+    seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
 }`,
-    rangeSumQueryCode:
-        `int query(int ind, int low, int high, int l, int r)
+    rangeSumQueryCode: `// Range sum query
+int query(int idx, int l, int r, int ql, int qr)
 {
-    if (r < low || high < l)
+    if (qr < l || r < ql)
         return 0;
 
-    if (low >= l && high <= r)
-        return seg[ind];
+    if (ql <= l && r <= qr)
+        return seg[idx];
 
-    int mid = (low + high) / 2;
+    int mid = (l + r) / 2;
 
-    int left = query(2 * ind + 1, low, mid, l, r);
-    int right = query(2 * ind + 2, mid + 1, high, l, r);
+    int left = query(2 * idx + 1, l, mid, ql, qr);
+    int right = query(2 * idx + 2, mid + 1, r, ql, qr);
+
     return left + right;
 }`,
-    pointUpdateCode:
-        `void update(int index, int val, int low, int high, int ind)
+    pointUpdateCode: `// Point update
+void pointUpdate(int idx, int l, int r, int pos, int val)
 {
-    if (low == high)
+    if (l == r)
     {
-        seg[ind] = val;
+        seg[idx] += val;
         return;
     }
-    int mid = (low + high) / 2;
 
-    if (index <= mid)
-        update(index, val, low, mid, 2 * ind + 1);
+    int mid = (l + r) / 2;
+
+    if (pos <= mid)
+        pointUpdate(2 * idx + 1, l, mid, pos, val);
     else
-        update(index, val, mid + 1, high, 2 * ind + 2);
+        pointUpdate(2 * idx + 2, mid + 1, r, pos, val);
     
-    seg[ind] = min(seg[2 * ind + 1], seg[2 * ind + 2]);
-}`,
+    seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
+}`
 };
 

@@ -41,7 +41,7 @@ export default function SegmentTreeLazyPage() {
                 </p>
 
                 <ul className="st-list">
-                    <li>Adding a value to all elements in a range <code className="st-inline-code">[l, r]</code></li>
+                    <li>Adding a value to all elements in a range <code className="st-inline-code">[ql, qr]</code></li>
                     <li>Assigning a value to all elements in a range</li>
                     <li>Updating ranges multiple times before querying</li>
                 </ul>
@@ -69,7 +69,7 @@ export default function SegmentTreeLazyPage() {
 
                 <div className="st-highlight">
                     <p className="st-text">
-                        <code className="st-inline-code">lazy[ind] = 7</code>
+                        <code className="st-inline-code">lazy[idx] = 7</code>
                     </p>
                     <p className="st-text">
                         The actual update is applied only when this segment is required
@@ -98,7 +98,7 @@ export default function SegmentTreeLazyPage() {
 
                 <p className="st-text">
                     With many updates, the total time complexity becomes{" "}
-                    <code className="st-inline-code">O(n²)</code>, which leads to{" "}
+                    <code className="st-inline-code">O(q · n)</code>, which leads to{" "}
                     <strong>TLE</strong> for large inputs.
                 </p>
 
@@ -116,7 +116,7 @@ export default function SegmentTreeLazyPage() {
 
                 <p className="st-text">
                     Even with a large number of queries, the total time complexity becomes{" "}
-                    <code className="st-inline-code">O(q log n)</code>, which is efficient
+                    <code className="st-inline-code">O(q · log n)</code>, which is efficient
                     and scalable.
                 </p>
 
@@ -195,9 +195,10 @@ export default function SegmentTreeLazyPage() {
 
                 <h2 className="st-heading">Time Complexity</h2>
                 <ul className="st-list">
-                    <li>Building the tree: O(n)</li>
-                    <li>Range update: O(log n)</li>
-                    <li>Range query: O(log n)</li>
+                    <li>Building the tree: <code className="st-inline-code">O(n)</code></li>
+                    <li>Range update: <code className="st-inline-code">O(log n)</code></li>
+                    <li>Point update: <code className="st-inline-code">O(log n)</code></li>
+                    <li>Range query: <code className="st-inline-code">O(log n)</code></li>
                 </ul>
 
                 <p className="st-text">
@@ -206,10 +207,10 @@ export default function SegmentTreeLazyPage() {
                     of range updates and queries.
                 </p>
 
-                <h1 className="st-title">Sum, Update, and Range Update Queries</h1>
+                <h1 className="st-title">Range Sum, Point Update, and Range Update Queries</h1>
 
                 {/* SUM QUERIES */}
-                <h2 className="st-heading">Sum Queries</h2>
+                <h2 className="st-heading">Range Sum Queries</h2>
                 <p className="st-text">
                     In a Segment Tree with Lazy Propagation, sum queries are handled
                     similarly to a normal Segment Tree, with one additional step to ensure
@@ -223,7 +224,7 @@ export default function SegmentTreeLazyPage() {
                     </li>
                     <li>
                         If the current segment completely lies inside the query range
-                        <code className="st-inline-code">[l, r]</code>, its stored sum is
+                        <code className="st-inline-code">[ql, qr]</code>, its stored sum is
                         returned directly.
                     </li>
                     <li>
@@ -348,9 +349,9 @@ export default function SegmentTreeLazyPage() {
                 </p>
 
                 <ul className="st-list">
-                    <li>The root node is stored at index <code className="st-inline-code">1</code></li>
-                    <li>The left child of a node at index <code className="st-inline-code">i</code> is at <code className="st-inline-code">2 * i</code></li>
-                    <li>The right child of a node at index <code className="st-inline-code">i</code> is at <code className="st-inline-code">2 * i + 1</code></li>
+                    <li>The root node is stored at index <code className="st-inline-code">0</code></li>
+                    <li>The left child of a node at index <code className="st-inline-code">i</code> is at <code className="st-inline-code">2 * i + 1</code></li>
+                    <li>The right child of a node at index <code className="st-inline-code">i</code> is at <code className="st-inline-code">2 * i + 2</code></li>
                 </ul>
 
                 <p className="st-text">
@@ -358,59 +359,213 @@ export default function SegmentTreeLazyPage() {
                     using explicit pointers.
                 </p>
 
-                <h2 className="st-heading">Segment Tree Build Function</h2>
+                <h2 className="st-heading">📌 Variable Notation</h2>
+
+                <ul className="st-list">
+                    <li>
+                        <code className="st-inline-code">idx</code> → index of the current node in the
+                        segment tree array
+                    </li>
+                    <li>
+                        <code className="st-inline-code">l</code> → left boundary of the segment
+                        represented by the current node
+                    </li>
+                    <li>
+                        <code className="st-inline-code">r</code> → right boundary of the segment
+                        represented by the current node
+                    </li>
+                    <li>
+                        <code className="st-inline-code">ql</code> → left boundary of the query or
+                        range update
+                    </li>
+                    <li>
+                        <code className="st-inline-code">qr</code> → right boundary of the query or
+                        range update
+                    </li>
+                    <li>
+                        <code className="st-inline-code">pos</code> → index of the element for a point
+                        update
+                    </li>
+                    <li>
+                        <code className="st-inline-code">val</code> → value to be added during a point
+                        or range update
+                    </li>
+                </ul>
+
+                <h2 className="st-heading">Build Function</h2>
+                <HighlightedCode code={AllCodes.buildCode} />
+
                 <p className="st-text">
-                    The build function constructs the Segment Tree in the same way as a
+                    The <code className='st-inline-code'>build</code> function constructs the Segment Tree in the same way as a
                     normal Segment Tree. Leaf nodes store individual array elements, and
                     internal nodes store the merged result of their children. The
                     <code className="st-inline-code">lazy</code> array is initialized with
                     zeros.
                 </p>
 
-                <h2 className="st-heading">Range Sum Query</h2>
+                <h2 className="st-heading">Push Function</h2>
+                <HighlightedCode code={AllCodes.lazyPushCode} />
+
                 <p className="st-text">
-                    To answer a range sum query, the tree is traversed recursively. Before
-                    using the value of a node, any pending lazy update is first applied to
-                    ensure correctness. The query then follows the standard overlap-based
-                    logic used in Segment Trees.
+                    The <code className="st-inline-code">push</code> function is used to propagate
+                    pending lazy values from a parent node to its children. When a node has a
+                    non-zero lazy value and we need to access its children (during a query or
+                    further update), this value is pushed down to the child nodes.
                 </p>
 
-                <h2 className="st-heading">Point Update</h2>
                 <p className="st-text">
-                    A point update modifies a single index in the array. The tree is
-                    traversed down to the corresponding leaf node, applying any pending
-                    lazy updates along the path. While returning back, parent nodes are
-                    recomputed using the merge operation.
+                    During the <code className="st-inline-code">push</code> operation, a pending
+                    update stored at a node is propagated to its children. If a node representing
+                    the range <code className="st-inline-code">[l, r]</code> has a lazy value
+                    <code className="st-inline-code">lazy[idx] = x</code>, then this value is passed
+                    down to both child nodes. The left child and right child each accumulate this
+                    value in their own <code className="st-inline-code">lazy</code> entries, and
+                    their segment values are updated accordingly.
                 </p>
 
-                <h2 className="st-heading">Range Update Function</h2>
                 <p className="st-text">
-                    The range update function is where Lazy Propagation plays its key
-                    role. If a segment is fully covered by the update range, the update is
-                    applied to the node and stored in the
-                    <code className="st-inline-code">lazy</code> array without immediately
-                    updating its children. Partial overlaps are handled recursively after
-                    propagating pending lazy values.
+                    For example, if a node covering the range
+                    <code className="st-inline-code">[2, 5]</code> has a pending update of
+                    <code className="st-inline-code">+3</code>, this update is not immediately
+                    applied to its children. When a push is required, the update is transferred to
+                    the children covering <code className="st-inline-code">[2, 3]</code> and
+                    <code className="st-inline-code">[4, 5]</code>. Each child stores the update in
+                    its lazy value, and the parent’s lazy value is then reset.
                 </p>
 
                 <div className="st-highlight">
                     <p className="st-text">
-                        By combining array-based representation with Lazy Propagation, range
-                        updates and queries are handled efficiently in
-                        <code className="st-inline-code">O(log n)</code> time.
+                        The push function ensures correctness by applying deferred updates at the
+                        right time, while still keeping all operations efficient with
+                        <code className="st-inline-code">O(log n)</code> complexity.
+                    </p>
+                </div>
+
+                <h2 className="st-heading">Range Sum Query Function</h2>
+                <HighlightedCode code={AllCodes.rangeSumQueryCode} />
+
+                <p className="st-text">
+                    Range sum queries in a Lazy Segment Tree are conceptually similar to those in a
+                    normal Segment Tree, but with an important additional step. In a standard
+                    Segment Tree, we can directly use the stored node values because there are no
+                    pending updates.
+                </p>
+
+                <p className="st-text">
+                    In contrast, a Lazy Segment Tree may contain pending updates stored in the
+                    <code className="st-inline-code">lazy</code> array. Therefore, before using the
+                    value of any node, we must first check whether a lazy value exists. If a
+                    pending update is found, it is propagated to the child nodes using the
+                    <code className="st-inline-code">push</code> function, and the current node’s
+                    value is updated accordingly.
+                </p>
+
+                <p className="st-text">
+                    After ensuring that all pending updates are applied, the query proceeds using
+                    the same overlap-based logic as a normal Segment Tree to compute the required
+                    range sum.
+                </p>
+
+                <h2 className="st-heading">Point Update Function</h2>
+                <HighlightedCode code={AllCodes.pointUpdateCode} />
+
+                <p className="st-text">
+                    In a Lazy Segment Tree, a point update follows the same traversal path as in a
+                    normal Segment Tree, but with additional handling for pending updates. Starting
+                    from the root, the tree is traversed recursively toward the leaf node that
+                    represents the target index.
+                </p>
+
+                <p className="st-text">
+                    At each visited node, the algorithm first checks whether there is any pending
+                    update stored in the <code className="st-inline-code">lazy</code> array. If a
+                    lazy value exists, it is propagated downward using the
+                    <code className="st-inline-code">push</code> function so that the current node
+                    and its children reflect all deferred updates before continuing the traversal.
+                </p>
+
+                <p className="st-text">
+                    Once the traversal reaches the leaf node corresponding to the update index,
+                    the node’s value is updated directly. As the recursion unwinds, all ancestor
+                    nodes are recomputed using the merge operation (such as summation), ensuring
+                    that the changes are correctly reflected throughout the tree.
+                </p>
+
+                <h2 className="st-heading">Range Update Function</h2>
+                <HighlightedCode code={AllCodes.rangeUpdateCode} />
+
+                <p className="st-text">
+                    The range update function is the core component of a Lazy Segment Tree. Its
+                    purpose is to apply an update operation (such as addition or assignment) to
+                    all elements within a given range
+                    <code className="st-inline-code">[ql, qr]</code> without explicitly updating
+                    every element in that range.
+                </p>
+
+                <p className="st-text">
+                    When the current segment
+                    <code className="st-inline-code">[l, r]</code> is completely outside the
+                    update range, the function returns immediately, as no update is required.
+                    If the segment is fully covered by the update range, the update is applied
+                    directly to the node’s stored value, and the update information is recorded
+                    in the <code className="st-inline-code">lazy</code> array. This indicates that
+                    the update should be propagated to the children at a later time.
+                </p>
+
+                <p className="st-text">
+                    In the case of partial overlap, the algorithm first checks for any pending
+                    lazy updates at the current node. If such updates exist, they are propagated
+                    downward using the <code className="st-inline-code">push</code> function to
+                    ensure correctness. The update operation is then recursively applied to both
+                    child segments, and after the recursion completes, the current node’s value
+                    is recomputed using the merge operation.
+                </p>
+
+                <div className="st-highlight">
+                    <p className="st-text">
+                        By deferring updates and propagating them only when necessary, the range
+                        update function guarantees that both update and query operations run in
+                        <code className="st-inline-code">O(log n)</code> time, even for large input
+                        sizes.
+                    </p>
+                </div>
+
+                <div className="st-highlight">
+                    <p className="st-text">
+                        <strong style={{ color: "red" }}>📌 Note:</strong> A point update is a special case of a range update
+                        where the update range consists of a single index. In other words, when the
+                        start and end of the update range are equal, both operations behave
+                        identically.
+                    </p>
+
+                    <p className="st-text">
+                        From an implementation perspective, this can be expressed as:
+                    </p>
+
+                    <p className="st-text">
+                        <code className="st-inline-code">
+                            pointUpdate(idx, l, r, pos, val)
+                        </code>
+                        <br />
+                        is equivalent to
+                        <br />
+                        <code className="st-inline-code">
+                            rangeUpdate(idx, l, r, pos, pos, val)
+                        </code>
+                    </p>
+
+                    <p className="st-text">
+                        This equivalence highlights that Lazy Propagation generalizes point updates
+                        into range updates, allowing both operations to be handled efficiently
+                        within a unified framework.
                     </p>
                 </div>
 
                 <h2 className="st-title">Complete Segment Tree Code</h2>
                 <p className="st-text">
-                    Below is a sample implementation of a Segment Tree that supports sum
-                    queries and point updates. This code demonstrates how the tree is
-                    built, queried, and updated efficiently.
+                    Here is a sample code snippet for Segment Tree with lazy propagation sum operations:
                 </p>
-
-                <div className="st-code">
-                    {/* You will add the complete segment tree code here */}
-                </div>
+                <HighlightedCode code={AllCodes.completeCode} />
 
                 {/* PRACTICE PROBLEMS */}
                 <h2 className="st-title">Practice Problems</h2>
@@ -520,7 +675,7 @@ export default function SegmentTreeLazyPage() {
                         – Focuses on lazy propagation and advanced segment tree update strategies.
                         <br />
                         <span className="st-muted" style={{ display: "block", marginTop: "6px" }}>
-                            <code style={{ color: "#d9534f", fontWeight: "600" }}> 📝 Note:-</code> If this link does not open, navigate via
+                            <code style={{ color: "#d9534f", fontWeight: "600" }}>📌  Note:-</code> If this link does not open, navigate via
                             <strong> Codeforces → EDU → Courses → ITMO Academy: Pilot Course → Segment Tree, Part 2</strong>
                         </span>
                     </li>

@@ -1,127 +1,84 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class ST
+class SGTree
 {
 public:
-    vector<int> seg, lazy;
-    ST(int n)
-    {
-        seg.resize(4 * n);
-        lazy.resize(4 * n);
-    }
-    void build(int ind, int low, int high, vector<int> arr)
-    {
-        if (low == high)
-        {
-            seg[ind] = arr[low];
-            return;
-        }
-        int mid = (low + high) / 2;
-        build(2 * ind + 1, low, mid, arr);
-        build(2 * ind + 2, mid + 1, high, arr);
-        seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2];
-    }
-    void update(int ind, int low, int high, int l, int r, int val)
-    {
-        if (lazy[ind] != 0)
-        {
-            seg[ind] = lazy[ind] * (high - low + 1);
-            if (low != high)
-            {
-                seg[2 * ind + 1] += lazy[ind];
-                seg[2 * ind + 2] += lazy[ind];
-            }
-            lazy[ind] = 0;
-        }
-        // not overlaping
-        // low high l r || l r low high
-        if (high < l || low > r)
-            return;
+    vector<int> seg;
 
-        // partial overlaping
-        // l low high r
-        if (l <= low && r >= high)
+    SGTree(int n)
+    {
+        seg.assign(4 * n, 0);
+    }
+
+    // Build the segment tree
+    void build(int idx, int l, int r, const vector<int> &arr)
+    {
+        if (l == r)
         {
-            seg[ind] += val * (high - low + 1);
-            if (low != high)
-            {
-                lazy[2 * ind + 1] += val;
-                lazy[2 * ind + 2] += val;
-            }
+            seg[idx] = arr[l];
             return;
         }
 
-        int mid = (low + high) / 2;
-        update(2 * ind + 1, low, mid, l, r, val);
-        update(2 * ind + 2, mid + 1, high, l, r, val);
-        seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2];
+        int mid = (l + r) / 2;
+
+        build(2 * idx + 1, l, mid, arr);
+        build(2 * idx + 2, mid + 1, r, arr);
+
+        seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
     }
-    int query(int ind, int low, int high, int l, int r)
+
+    // Point update
+    void pointUpdate(int idx, int l, int r, int pos, int val)
     {
-        if (lazy[ind] != 0)
+        if (l == r)
         {
-            seg[ind] += lazy[ind] * (high - low + 1);
-            if (low != high)
-            {
-                seg[2 * ind + 1] += lazy[ind];
-                seg[2 * ind + 2] += lazy[ind];
-            }
-            lazy[ind] = 0;
+            seg[idx] += val;
+            return;
         }
 
-        // not overlaping
-        // low high l r || l r low high
-        if (high < l || low > r)
+        int mid = (l + r) / 2;
+
+        if (pos <= mid)
+            pointUpdate(2 * idx + 1, l, mid, pos, val);
+        else
+            pointUpdate(2 * idx + 2, mid + 1, r, pos, val);
+
+        seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
+    }
+
+    // Range sum query
+    int query(int idx, int l, int r, int ql, int qr)
+    {
+        if (qr < l || r < ql)
             return 0;
 
-        // partial overlaping
-        // l low high r
-        if (l <= low && r >= high)
-            return seg[ind];
+        if (ql <= l && r <= qr)
+            return seg[idx];
 
-        int mid = (low + high) / 2;
-        int left = query(2 * ind + 1, low, mid, l, r);
-        int right = query(2 * ind + 2, mid + 1, high, l, r);
+        int mid = (l + r) / 2;
+
+        int left = query(2 * idx + 1, l, mid, ql, qr);
+        int right = query(2 * idx + 2, mid + 1, r, ql, qr);
+
         return left + right;
     }
 };
 
 int main()
 {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for (auto &it : arr)
-        cin >> it;
-    int q;
-    cin >> q;
-    ST st(n);
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    int n = arr.size();
+
+    SGTree st(n);
     st.build(0, 0, n - 1, arr);
-    while (q--)
-    {
-        int type;
-        cin >> type;
-        if (type == 1)
-        {
-            int l, r;
-            cin >> l >> r;
-            cout << "sum is : " << st.query(0, 0, n - 1, l, r) << endl;
-        }
-        else
-        {
-            int l, r, val;
-            cin >> l >> r >> val;
-            st.update(0, 0, n - 1, l, r, val);
-        }
-    }
+
+    // Initial sum
+    cout << st.query(0, 0, n - 1, 0, 4) << endl; // 15
+
+    // Point update: add 2 at index 3
+    st.pointUpdate(0, 0, n - 1, 3, 2);
+    cout << st.query(0, 0, n - 1, 0, 4) << endl; // 17
+
     return 0;
 }
-/*
-5
-1 2 3 4 5
-3
-1 2 4
-2 2 4 -3
-1 2 4
-*/
