@@ -6,6 +6,11 @@ export async function handleRangeQuery(start, end, treeData, treeType, speed) {
     return;
   }
 
+  function updateLazyUI(node) {
+    if (!node) return;
+    changeNodeAppearance(node.range, "#0e695a", node.value, node.lazy);
+  }
+
   function applyLazy(node, nodeStart, nodeEnd) {
     if (Number(node.lazy) === 0) return;
 
@@ -21,13 +26,16 @@ export async function handleRangeQuery(start, end, treeData, treeType, speed) {
     if (node.children?.[0]) {
       node.children[0].lazy =
         Number(node.children[0].lazy ?? 0) + lazyVal;
+      updateLazyUI(node.children[0]);
     }
     if (node.children?.[1]) {
       node.children[1].lazy =
         Number(node.children[1].lazy ?? 0) + lazyVal;
+      updateLazyUI(node.children[1]);
     }
 
     node.lazy = 0;
+    updateLazyUI(node);
   }
 
   async function queryNode(node, parent = null) {
@@ -64,7 +72,7 @@ export async function handleRangeQuery(start, end, treeData, treeType, speed) {
 
       if (nodeStart == nodeEnd) {
         // ✅ Highlight leaf node
-        changeNodeAppearance(node.range, "yellow", node.value);
+        changeNodeAppearance(node.range, "gray", node.value);
         await new Promise((resolve) => setTimeout(resolve, speed));
         changeNodeAppearance(node.range, "#0c573e", node.value);
       }
@@ -78,7 +86,7 @@ export async function handleRangeQuery(start, end, treeData, treeType, speed) {
     }
 
     // ✅ Highlight partial contribution nodes
-    changeNodeAppearance(node.range, "yellow", node.value);
+    changeNodeAppearance(node.range, "gray", node.value);
     await new Promise((resolve) => setTimeout(resolve, speed));
 
     // ✅ Query left and right children

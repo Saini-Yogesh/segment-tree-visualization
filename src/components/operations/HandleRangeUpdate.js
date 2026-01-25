@@ -13,6 +13,11 @@ export const handleRangeUpdate = async (
     return;
   }
 
+  function updateLazyUI(node) {
+    if (!node) return;
+    changeNodeAppearance(node.range, "#0e695a", node.value, node.lazy);
+  }
+
   function applyLazy(node, start, end) {
     if (Number(node.lazy) !== 0) {
       const lazyVal = Number(node.lazy);
@@ -66,15 +71,17 @@ export const handleRangeUpdate = async (
         if (node.children?.[0]) {
           node.children[0].lazy =
             Number(node.children[0].lazy) + addVal;
+          updateLazyUI(node.children[0]);
         }
         if (node.children?.[1]) {
           node.children[1].lazy =
             Number(node.children[1].lazy) + addVal;
+          updateLazyUI(node.children[1]);
         }
       }
 
       if (parent) changePathColor(parent.range, node.range, "red");
-      changeNodeAppearance(node.range, "yellow", node.value, node.lazy);
+      changeNodeAppearance(node.range, "gray", node.value, node.lazy);
       await new Promise((r) => setTimeout(r, speed));
       if (parent) changePathColor(parent.range, node.range, "#0e695a");
       changeNodeAppearance(node.range, "#0e695a", node.value, node.lazy);
@@ -83,9 +90,8 @@ export const handleRangeUpdate = async (
     }
 
     // partial overlap
-
     if (parent) changePathColor(parent.range, node.range, "red");
-    changeNodeAppearance(node.range, "yellow", node.value, node.lazy);
+    changeNodeAppearance(node.range, "gray", node.value, node.lazy);
     await new Promise((r) => setTimeout(r, speed));
 
     if (node.children?.[0]) await rangeUpdate(node.children[0], node);

@@ -8,6 +8,11 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeTy
       return;
     }
 
+    function updateLazyUI(node) {
+      if (!node) return;
+      changeNodeAppearance(node.range, "#0e695a", node.value, node.lazy);
+    }
+
     // ✅ FIX: Proper lazy apply (apply + push + clear)
     function applyLazy(node, start, end) {
       if (Number(node.lazy) === 0) return;
@@ -24,13 +29,16 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeTy
       if (node.children?.[0]) {
         node.children[0].lazy =
           Number(node.children[0].lazy ?? 0) + lazyVal;
+        updateLazyUI(node.children[0]);
       }
       if (node.children?.[1]) {
         node.children[1].lazy =
           Number(node.children[1].lazy ?? 0) + lazyVal;
+        updateLazyUI(node.children[1]);
       }
 
       node.lazy = 0;
+      updateLazyUI(node);
     }
 
     async function updateNode(node, parent = null) {
@@ -51,7 +59,7 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeTy
 
         // ✅ Change node color and path color (if it has a parent)
         if (parent) changePathColor(parent.range, node.range, "red");
-        changeNodeAppearance(node.range, "yellow", newValue);
+        changeNodeAppearance(node.range, "gray", newValue);
 
         await new Promise((resolve) => setTimeout(resolve, speed)); // ✅ Delay
 
@@ -66,7 +74,7 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeTy
 
       // ✅ Highlight current node and its path from parent
       if (parent) changePathColor(parent.range, node.range, "red");
-      changeNodeAppearance(node.range, "yellow", node.value);
+      changeNodeAppearance(node.range, "gray", node.value);
       await new Promise((resolve) => setTimeout(resolve, speed)); // ✅ Delay
 
       if (index <= mid) {
@@ -97,9 +105,7 @@ export function handleUpdateIndex(index, newValue, treeData, setTreeData, treeTy
     }
 
     updateNode(treeData).then(() => {
-      setTreeData((prevTree) => ({ ...prevTree })); // ✅ FIX: force safe re-render
       resolve();
-      return;
     });
   });
 }

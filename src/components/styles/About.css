@@ -186,3 +186,101 @@
     justify-content: center;
   }
 }
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal box */
+.modal {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 360px;
+  text-align: center;
+  animation: scaleIn 0.2s ease;
+}
+
+/* QR */
+.qr-img {
+  width: 250px;
+  max-width: 100%;
+  margin: 16px auto;
+
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
+/* Buttons */
+.support-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+.copy-btn {
+  margin-top: 4px 0px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  background: #f8f9ff;
+  transition: all 0.2s ease;
+}
+
+.copy-btn.copied {
+  background: #e6fffa;
+  border-color: #10b981;
+  color: #047857;
+  font-weight: 600;
+  transform: scale(1.05);
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Text */
+.upi-text {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Animation */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

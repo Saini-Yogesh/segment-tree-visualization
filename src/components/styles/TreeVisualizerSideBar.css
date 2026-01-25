@@ -58,3 +58,11 @@
 .buttons-container button[title] {
   position: relative;
 }
+
+.node-lazy {
+  fill: red !important;
+  font-size: 12px;
+  font-weight: bold;
+  pointer-events: none;
+  dominant-baseline: middle;
+}

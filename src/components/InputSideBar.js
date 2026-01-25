@@ -15,7 +15,7 @@ export default function InputSection({
   const [speed, setSpeed] = useState(1000);
 
   // States for handling query visibility and inputs
-  const [showUpdateIndex, setShowUpdateIndex] = useState(false);
+  const [showUpdateIndex, setShowUpdateIndex] = useState(true);
   const [showRangeQuery, setShowRangeQuery] = useState(false);
   const [showRangeUpdate, setShowRangeUpdate] = useState(false);
 

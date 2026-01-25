@@ -1,8 +1,22 @@
 'use client'
+import { useState, useEffect } from 'react'
 import { FaEnvelope, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa'
 import '@/components/styles/About.css'
 
 export default function About() {
+
+  const [open, setOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  // Close on ESC
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    if (open) window.addEventListener('keydown', handleEsc)
+    return () => window.removeEventListener('keydown', handleEsc)
+  }, [open])
+
   return (
     <div className='ab'>
       <div className="about">
@@ -69,14 +83,73 @@ export default function About() {
             give you real-world open-source experience.
           </p>
 
-          <a
-            href="https://github.com/Saini-Yogesh/segment-tree-visualization"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="project-aim-link"
-          >
-            View Project Repository →
-          </a>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <a
+              href="https://github.com/Saini-Yogesh/segment-tree-visualization"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-aim-link"
+            >
+              🔗 View Repository →
+            </a>
+            <a
+              href="https://github.com/Saini-Yogesh/segment-tree-visualization"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-aim-link"
+            >
+              ⭐ Star on GitHub →
+            </a>
+            <a
+              className="project-aim-link"
+              onClick={() => setOpen(true)}
+              style={{ cursor: "pointer" }}
+            >
+              ☕ Buy Me a Coffee
+            </a>
+          </div>
+
+          {/* MODAL */}
+          {open && (
+            <div className="modal-overlay" onClick={() => setOpen(false)}>
+              <div
+                className="modal"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3>Support the Project</h3>
+
+                <img
+                  src="/upi-qr.png"   // put QR image in public folder
+                  alt="UPI QR"
+                  className="qr-img"
+                  draggable="false"
+                />
+
+                <p className="upi-text">
+                  UPI ID: <strong>yogesh.saini4002@oksbi</strong>
+                </p>
+
+                <button
+                  aria-live="polite"
+                  aria-label="Copy UPI ID"
+                  className={`copy-btn ${copied ? 'copied' : ''}`}
+                  onClick={() => {
+                    navigator.clipboard.writeText('yogesh.saini4002@oksbi')
+                    setCopied(true)
+                    setTimeout(() => setCopied(false), 2000)
+                  }}
+                >
+                  {copied ? 'Copied ✓' : 'Copy UPI ID'}
+                </button>
+
+
+                <p className="note">
+                  Totally optional — stars & feedback matter just as much ❤️
+                </p>
+              </div>
+            </div>
+          )}
+
         </div>
 
         <h2 className="section-title-2">

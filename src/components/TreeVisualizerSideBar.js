@@ -124,15 +124,14 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         .style("fill", "white")
         .style("font-size", "16px");
 
-      // ✅ lazy (bottom)
-      // nodeGroup
-      //   .append("text")
-      //   .text(`L:${node.data.lazy}`)
-      //   .attr("class", "node-lazy")
-      //   .attr("y", nodeRadius + 14)
-      //   .attr("text-anchor", "middle")
-      //   .style("fill", "red")
-      //   .style("font-size", "12px");
+      // ✅ lazy value below node
+      nodeGroup
+        .append("text")
+        .attr("class", "node-lazy")
+        .attr("y", nodeRadius + 12)
+        .attr("text-anchor", "middle")
+        .text(Number(node.data.lazy) ? `L: ${node.data.lazy}` : "");
+
     };
 
     const updateNodeValueOnBacktrack = (node) => {
@@ -247,17 +246,22 @@ export default function SegmentTreeD3({ data, animationDelay }) {
   );
 }
 
-export function changeNodeAppearance(range, color, newValue) {
+export function changeNodeAppearance(range, color, newValue, lazyValue = 0) {
   const sanitizeClassName = (range) =>
     `range-${range.replace(/[\[\],\s]/g, "-")}`;
 
   const nodeSelection = d3.select(`.node-${sanitizeClassName(range)}`);
 
-  // ✅ Change node color
+  // circle
   nodeSelection.select("circle").attr("fill", color);
 
-  // ✅ Update node value inside the circle
+  // value inside
   nodeSelection.select(".node-value").text(newValue);
+
+  // ✅ lazy below
+  nodeSelection
+    .select(".node-lazy")
+    .text(lazyValue ? `L: ${lazyValue}` : "");
 }
 
 export function changePathColor(parentRange, childRange, color, isBacktracking = false) {
