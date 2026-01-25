@@ -229,9 +229,6 @@ export default function SegmentTreeD3({ data, animationDelay }) {
           <button onClick={fitSegmentTree}>
             <MdOutlineFitScreen />
           </button>
-          <button onClick={downloadSVGAsPNG}>
-            <FaDownload />
-          </button>
           <button
             onClick={() =>
               setLinkMode(m => (m === "curve" ? "elbow" : "curve"))
@@ -239,6 +236,9 @@ export default function SegmentTreeD3({ data, animationDelay }) {
             title={LINK_MODE === "curve" ? "Switch to Elbow View" : "Switch to Curve View"}
           >
             {LINK_MODE === "curve" ? <PiArrowElbowLeftDownBold /> : <FaBezierCurve />}
+          </button>
+          <button onClick={downloadSVGAsPNG}>
+            <FaDownload />
           </button>
         </div>
         <svg id="my-svg" ref={svgRef}></svg>

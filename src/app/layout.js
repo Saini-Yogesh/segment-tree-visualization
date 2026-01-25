@@ -18,34 +18,73 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   metadataBase: new URL("https://segment-tree-visualization.vercel.app/"),
-  title: "Segment Tree Visualizer | Interactive DSA Tool for Range Queries",
+
+  title:
+    "Segment Tree Visualizer | Range Queries, Range Updates & Lazy Propagation Animation",
+
   description:
-    "Master Segment Trees with our interactive visualizer! Learn how to efficiently perform Range Minimum, Maximum, and Sum Queries with real-time animations.",
-  keywords:
-    "Segment Tree, Data Structures, DSA, Range Queries, Range Minimum Query, Range Maximum Query, Range Sum Query, Lazy Propagation, Algorithm Visualization, Interactive Learning",
+    "Interactive Segment Tree Visualizer to learn range sum, range min/max queries, point updates, and range updates using lazy propagation with step-by-step animations. Ideal for DSA, competitive programming, and interview preparation.",
+
+  keywords: [
+    // Core
+    "segment tree",
+    "segment tree visualizer",
+    "segment tree animation",
+    "segment tree tutorial",
+
+    // Queries
+    "range sum query segment tree",
+    "range minimum query",
+    "range maximum query",
+    "segment tree range query",
+
+    // Updates
+    "segment tree point update",
+    "segment tree range update",
+    "range update segment tree",
+
+    // Lazy Propagation
+    "lazy propagation",
+    "lazy propagation segment tree",
+    "range update lazy propagation",
+    "segment tree lazy propagation animation",
+
+    // Audience / Intent
+    "data structures visualization",
+    "algorithm visualization",
+    "competitive programming segment tree",
+    "segment tree dsa",
+    "segment tree interview questions",
+  ],
+
   openGraph: {
-    title: "Segment Tree Visualizer | Master Range Queries",
+    title:
+      "Segment Tree Visualizer | Range Updates & Lazy Propagation with Animation",
     description:
-      "Explore and understand Segment Trees with an interactive visualizer. Perform Range Min, Max, and Sum Queries in real time with smooth animations.",
+      "Visualize Segment Tree operations including range queries, point updates, and range updates using lazy propagation. Learn with interactive animations designed for competitive programming.",
     url: "https://segment-tree-visualization.vercel.app/",
     siteName: "Segment Tree Visualizer",
     type: "website",
     images: [
       {
-        url: "https://images.tpointtech.com/ds/images/binary-tree.png", // Ensure absolute URL
-        secure_url: "https://images.tpointtech.com/ds/images/binary-tree.png", // Ensure secure access
+        url: "https://segment-tree-visualization.vercel.app/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Segment Tree Visualization - Interactive Learning",
+        alt:
+          "Segment Tree Visualizer with Range Updates and Lazy Propagation Animation",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Segment Tree Visualizer | Learn & Optimize",
+    title:
+      "Segment Tree Visualizer | Range Update & Lazy Propagation Animation",
     description:
-      "Understand and visualize Segment Tree operations! Run real-time range queries and updates with an interactive interface.",
-    images: ["https://images.tpointtech.com/ds/images/binary-tree.png"],
+      "Learn Segment Tree with interactive animations for range queries, point updates, and lazy propagation. Built for DSA and competitive programming.",
+    images: [
+      "https://segment-tree-visualization.vercel.app/og-image.png",
+    ],
   },
 };
 
@@ -53,6 +92,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <meta name="google-site-verification" content="MOAumdSax3koXw9eLHBo9_MtJ0xLb3YpGZQubfnHKc0" />
         {/* Structured Data for SEO */}
         <script
           type="application/ld+json"
@@ -62,20 +102,23 @@ export default function RootLayout({ children }) {
               "@type": "SoftwareApplication",
               name: "Segment Tree Visualizer",
               description:
-                "An interactive tool for learning and visualizing Segment Tree operations like Range Min/Max/Sum Queries.",
-              applicationCategory: "Educational",
+                "An interactive educational tool to visualize Segment Tree operations including range queries, point updates, and range updates using lazy propagation with animations.",
+              applicationCategory: "EducationalApplication",
               operatingSystem: "Web",
+              url: "https://segment-tree-visualization.vercel.app/",
+              image:
+                "https://segment-tree-visualization.vercel.app/og-image.png",
               offers: {
                 "@type": "Offer",
                 price: "0",
                 priceCurrency: "USD",
               },
-              url: "https://segment-tree-visualization.vercel.app/",
-              image: "https://images.tpointtech.com/ds/images/binary-tree.png",
               author: {
                 "@type": "Person",
                 name: "Yogesh Saini",
               },
+              keywords:
+                "segment tree, range update, lazy propagation, segment tree animation, data structures, competitive programming",
             }),
           }}
         />
@@ -83,8 +126,10 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Navbar />
         {children}
-        <ScrollToTopButton />
-        <ReportBugButton />
+        <div className="floating-actions">
+          <ScrollToTopButton />
+          <ReportBugButton />
+        </div>
       </body>
     </html>
   );
