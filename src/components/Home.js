@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { buildSegmentTree } from "./utils/segmentTreeUtils";
 import SegmentTreeD3 from "./TreeVisualizerSideBar";
@@ -27,7 +27,14 @@ export default function Home() {
     if (!treeData) return;
 
     // ✅ Wait for `handleUpdateIndex` to finish before showing toast
-    await handleUpdateIndex(index, newValue, treeData, setTreeData, treeType, speed);
+    await handleUpdateIndex(
+      index,
+      newValue,
+      treeData,
+      setTreeData,
+      treeType,
+      speed,
+    );
 
     // ✅ Show toast after animation completes
     toast.success(`Index ${index} updated to ${newValue}!`);
@@ -45,10 +52,7 @@ export default function Home() {
 
     // ✅ Wait for `handleRangeUpdate` to finish before showing toast
     await handleRangeUpdate(start, end, value, treeData, treeType, speed);
-
-    // ✅ Show toast after animation completes
-    // toast.info("Range update feature is under development! 🚧");
-  }
+  };
 
   return (
     <div className="container">
@@ -62,6 +66,5 @@ export default function Home() {
         <SegmentTreeD3 data={treeData} animationDelay={animationDelay} />
       </div>
     </div>
-
   );
 }
