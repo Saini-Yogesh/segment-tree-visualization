@@ -34,7 +34,7 @@ export default function HighlightedCode({ code, language = 'cpp' }) {
 
     return (
         <div className="code-box">
-            <button className="copy-icon" onClick={handleCopy}>
+            <button className="copy-icon" onClick={handleCopy} aria-label="Copy code">
                 {copied ? <FaCheck /> : <PiCopyDuotone />}
             </button>
 

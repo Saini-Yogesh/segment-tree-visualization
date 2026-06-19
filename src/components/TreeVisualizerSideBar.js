@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import "./styles/TreeVisualizerSideBar.css";
@@ -26,11 +26,12 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       .attr("width", width)
       .attr("height", height)
       .call(
-        d3.zoom()
+        d3
+          .zoom()
           .scaleExtent([0.3, 2]) // Set zoom level limits 0.3x to 2x
           .on("zoom", (event) => {
             g.attr("transform", event.transform);
-          })
+          }),
       );
 
     svg.selectAll("*").remove();
@@ -57,15 +58,14 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       if (LINK_MODE === "curve") {
         d = d3
           .linkVertical()
-          .x(d => d.x)
-          .y(d => d.y)({
-            source: { x: source.x, y: source.y },
-            target: { x: target.x, y: target.y },
-          });
+          .x((d) => d.x)
+          .y((d) => d.y)({
+          source: { x: source.x, y: source.y },
+          target: { x: target.x, y: target.y },
+        });
       } else {
         const midY = (source.y + target.y) / 2;
-        d =
-          `M ${source.x},${source.y}
+        d = `M ${source.x},${source.y}
          V ${midY}
          H ${target.x}
          V ${target.y}
@@ -78,8 +78,8 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         .attr(
           "class",
           `link-${sanitizeClassName(source.data.range)}-${sanitizeClassName(
-            target.data.range
-          )}`
+            target.data.range,
+          )}`,
         )
         .attr("stroke", "#d3d3d3")
         .attr("fill", "none")
@@ -96,7 +96,7 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       nodeGroup
         .append("circle")
         .attr("r", nodeRadius)
-        .attr("fill", "#d3d3d3")
+        .attr("fill", "#555555")
         .attr("stroke", "white")
         .attr("stroke-width", 2);
 
@@ -131,24 +131,26 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         .attr("y", nodeRadius + 12)
         .attr("text-anchor", "middle")
         .text(Number(node.data.lazy) ? `L: ${node.data.lazy}` : "");
-
     };
 
     const updateNodeValueOnBacktrack = (node) => {
       const nodeGroup = nodeLayer.select(
-        `.node-${sanitizeClassName(node.data.range)}`
+        `.node-${sanitizeClassName(node.data.range)}`,
       );
       const nodeText = nodeGroup.select(".node-value");
       nodeText.text(`${node.data.value}`).style("visibility", "visible");
     };
 
     const highlightPath = (source, target, color, isBacktracking = false) => {
-      const path = linkLayer
-        .select(`.link-${sanitizeClassName(source.data.range)}-${sanitizeClassName(target.data.range)}`);
+      const path = linkLayer.select(
+        `.link-${sanitizeClassName(source.data.range)}-${sanitizeClassName(target.data.range)}`,
+      );
 
       // ✅ Ensure path exists before proceeding
       if (path.empty() || !path.node()) {
-        console.warn(`Path from ${source.data.range} to ${target.data.range} not found.`);
+        console.warn(
+          `Path from ${source.data.range} to ${target.data.range} not found.`,
+        );
         return;
       }
 
@@ -163,7 +165,6 @@ export default function SegmentTreeD3({ data, animationDelay }) {
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", isBacktracking ? totalLength : 0);
     };
-
 
     const highlightNode = (node, color) => {
       nodeLayer
@@ -225,19 +226,42 @@ export default function SegmentTreeD3({ data, animationDelay }) {
       <div id="svg-container">
         {/* ✅ Buttons container for absolute positioning */}
         <div className="buttons-container">
-          <button onClick={fitSegmentTree}>
-            <MdOutlineFitScreen />
+          <button
+            onClick={fitSegmentTree}
+            aria-label="Fit Segment Tree to Screen"
+          >
+            <span className="sr-only">Fit Segment Tree to Screen</span>
+            <MdOutlineFitScreen aria-hidden="true" />
           </button>
           <button
             onClick={() =>
-              setLinkMode(m => (m === "curve" ? "elbow" : "curve"))
+              setLinkMode((m) => (m === "curve" ? "elbow" : "curve"))
             }
-            title={LINK_MODE === "curve" ? "Switch to Elbow View" : "Switch to Curve View"}
+            title={
+              LINK_MODE === "curve"
+                ? "Switch to Elbow View"
+                : "Switch to Curve View"
+            }
+            aria-label={
+              LINK_MODE === "curve"
+                ? "Switch to Elbow View"
+                : "Switch to Curve View"
+            }
           >
-            {LINK_MODE === "curve" ? <PiArrowElbowLeftDownBold /> : <FaBezierCurve />}
+            <span className="sr-only">
+              {LINK_MODE === "curve"
+                ? "Switch to Elbow View"
+                : "Switch to Curve View"}
+            </span>
+            {LINK_MODE === "curve" ? (
+              <PiArrowElbowLeftDownBold aria-hidden="true" />
+            ) : (
+              <FaBezierCurve aria-hidden="true" />
+            )}
           </button>
-          <button onClick={downloadSVGAsPNG}>
-            <FaDownload />
+          <button onClick={downloadSVGAsPNG} aria-label="Download SVG as PNG">
+            <span className="sr-only">Download SVG as PNG</span>
+            <FaDownload aria-hidden="true" />
           </button>
         </div>
         <svg id="my-svg" ref={svgRef}></svg>
@@ -259,16 +283,21 @@ export function changeNodeAppearance(range, color, newValue, lazyValue = 0) {
   nodeSelection.select(".node-value").text(newValue);
 
   // ✅ lazy below
-  nodeSelection
-    .select(".node-lazy")
-    .text(lazyValue ? `L: ${lazyValue}` : "");
+  nodeSelection.select(".node-lazy").text(lazyValue ? `L: ${lazyValue}` : "");
 }
 
-export function changePathColor(parentRange, childRange, color, isBacktracking = false) {
+export function changePathColor(
+  parentRange,
+  childRange,
+  color,
+  isBacktracking = false,
+) {
   const sanitizeClassName = (range) =>
     `range-${range.replace(/[\[\],\s]/g, "-")}`;
 
-  const path = d3.select(`.link-${sanitizeClassName(parentRange)}-${sanitizeClassName(childRange)}`);
+  const path = d3.select(
+    `.link-${sanitizeClassName(parentRange)}-${sanitizeClassName(childRange)}`,
+  );
 
   if (path.empty() || !path.node()) return; // Avoid errors if path is not found
 

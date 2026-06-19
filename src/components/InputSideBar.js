@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import "./styles/InputSideBar.css";
 import { toast } from "react-toastify";
@@ -119,6 +119,7 @@ export default function InputSection({
       {/* input Array */}
       <label htmlFor="input-array">Enter Array:</label>
       <input
+        id="input-array"
         type="text"
         value={arrayInput}
         onChange={(e) => setArrayInput(e.target.value)}
@@ -130,8 +131,13 @@ export default function InputSection({
 
       {/* speed range */}
       <span className="speed-control">
-        <label className="speed-label">Speed:</label>
+        <label htmlFor="speed-input" className="speed-label">
+          Speed:
+        </label>
         <input
+          id="speed-input"
+          aria-label="Speed"
+          title="Speed"
           className="speed-input"
           type="range"
           min="100"
@@ -162,7 +168,9 @@ export default function InputSection({
                   type="number"
                   value={index === null ? "" : index}
                   onChange={(e) =>
-                    setIndex(e.target.value === "" ? null : Number(e.target.value))
+                    setIndex(
+                      e.target.value === "" ? null : Number(e.target.value),
+                    )
                   }
                   placeholder="Enter index"
                 />
@@ -174,7 +182,9 @@ export default function InputSection({
                   type="number"
                   value={value === null ? "" : value}
                   onChange={(e) =>
-                    setValue(e.target.value === "" ? null : Number(e.target.value))
+                    setValue(
+                      e.target.value === "" ? null : Number(e.target.value),
+                    )
                   }
                   placeholder="Enter value"
                 />
@@ -203,7 +213,9 @@ export default function InputSection({
                   type="number"
                   value={rangeStart === null ? "" : rangeStart}
                   onChange={(e) =>
-                    setRangeStart(e.target.value === "" ? null : Number(e.target.value))
+                    setRangeStart(
+                      e.target.value === "" ? null : Number(e.target.value),
+                    )
                   }
                   placeholder="Start"
                 />
@@ -215,7 +227,9 @@ export default function InputSection({
                   type="number"
                   value={rangeEnd === null ? "" : rangeEnd}
                   onChange={(e) =>
-                    setRangeEnd(e.target.value === "" ? null : Number(e.target.value))
+                    setRangeEnd(
+                      e.target.value === "" ? null : Number(e.target.value),
+                    )
                   }
                   placeholder="End"
                 />
@@ -245,7 +259,9 @@ export default function InputSection({
                   type="number"
                   value={rangeStart === null ? "" : rangeStart}
                   onChange={(e) =>
-                    setRangeStart(e.target.value === "" ? null : Number(e.target.value))
+                    setRangeStart(
+                      e.target.value === "" ? null : Number(e.target.value),
+                    )
                   }
                   placeholder="Start"
                 />
@@ -258,7 +274,9 @@ export default function InputSection({
                   type="number"
                   value={rangeEnd === null ? "" : rangeEnd}
                   onChange={(e) =>
-                    setRangeEnd(e.target.value === "" ? null : Number(e.target.value))
+                    setRangeEnd(
+                      e.target.value === "" ? null : Number(e.target.value),
+                    )
                   }
                   placeholder="End"
                 />
