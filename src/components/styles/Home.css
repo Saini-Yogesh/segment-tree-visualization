@@ -3,7 +3,7 @@
   height: 100%;
   flex-direction: row;
   gap: 1rem;
-  margin: 10px;
+  margin: 5px 10px;
   justify-content: space-evenly;
 }
 

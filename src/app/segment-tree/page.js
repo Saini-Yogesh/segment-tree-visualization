@@ -44,6 +44,7 @@ export default function SegmentTreePage() {
   return (
     <>
       <Script
+        id="segment-tree-faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({

@@ -75,6 +75,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .st-image {
@@ -87,16 +88,10 @@
 .st-highlight {
   background: #eef2ff;
   border-left: 4px solid #2563eb;
-  padding: 14px 18px;
-  border-radius: 8px;
-}
-
-.st-highlight {
-  background: #eef2ff;
-  border-left: 4px solid #2563eb;
-  padding: 14px 18px;
-  border-radius: 8px;
+  padding: 16px 20px;
+  border-radius: 12px;
   margin-top: 18px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
 }
 
 .st-inline-code {

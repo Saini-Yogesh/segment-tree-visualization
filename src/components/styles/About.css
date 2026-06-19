@@ -69,8 +69,9 @@
 .project-aim-highlight {
   background: #eef2ff;
   border-left: 4px solid #2563eb;
-  padding: 18px 20px;
-  border-radius: 10px;
+  padding: 20px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
 }
 
 .project-aim-highlight h3 {
@@ -105,8 +106,9 @@
 .about-highlight {
   background: #eef2ff;
   border-left: 4px solid #2563eb;
-  padding: 14px 18px;
-  border-radius: 8px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
 }
 
 .about-tag {
@@ -235,11 +237,17 @@
 .copy-btn {
   margin-top: 4px 0px;
   padding: 8px 14px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid #ddd;
   cursor: pointer;
   background: #f8f9ff;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.copy-btn:hover {
+  background: #eef2ff;
+  border-color: #2563eb;
+  transform: translateY(-1px);
 }
 
 .copy-btn.copied {
