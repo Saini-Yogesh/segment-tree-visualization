@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "../components/styles/globals.css";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import ScrollToTopButton from "../components/functions/ScrollToTopButton/ScrollToTopButton";
 import ReportBugButton from "@/components/functions/ReportBugButton/ReportBugButton";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -21,8 +22,10 @@ const geistMono = Geist_Mono({
 export const metadata = {
   metadataBase: new URL("https://segment-tree-visualization.vercel.app/"),
 
-  title:
-    "Segment Tree Visualizer | Range Queries, Range Updates & Lazy Propagation Animation",
+  title: {
+    default: "Segment Tree Visualizer | Range Queries & Lazy Propagation",
+    template: "%s | Segment Tree Visualizer"
+  },
 
   description:
     "Interactive Segment Tree Visualizer to learn range sum, range min/max queries, point updates, and range updates using lazy propagation with step-by-step animations. Ideal for DSA, competitive programming, and interview preparation.",
@@ -60,8 +63,7 @@ export const metadata = {
   ],
 
   openGraph: {
-    title:
-      "Segment Tree Visualizer | Range Updates & Lazy Propagation with Animation",
+    title: "Segment Tree Visualizer | Range Updates & Lazy Propagation",
     description:
       "Visualize Segment Tree operations including range queries, point updates, and range updates using lazy propagation. Learn with interactive animations designed for competitive programming.",
     url: "https://segment-tree-visualization.vercel.app/",
@@ -126,8 +128,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
-        <main>{children}</main>
+        <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+          <Navbar />
+          <main style={{ flex: 1 }}>{children}</main>
+          <Footer />
+        </div>
         <div className="floating-actions">
           <ScrollToTopButton />
           <ReportBugButton />

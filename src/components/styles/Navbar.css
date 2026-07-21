@@ -1,24 +1,54 @@
-/* ===== Top Navigation Tabs ===== */
-.top-tabs {
-  text-align: center;
+/* ===== Top Navigation Wrapper ===== */
+.navbar-wrapper {
   position: sticky;
   top: 0;
   z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 28px;
-  font-size: 20px;
-  padding: 10px 0;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(229, 229, 229, 0.6);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
-/* Links */
-.top-tabs a {
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== Logo Section ===== */
+.nav-logo a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 20px;
+  color: #0e695a; /* Teal brand color */
+  transition: opacity 0.2s ease;
+}
+
+.nav-logo a:hover {
+  opacity: 0.85;
+}
+
+.nav-logo .logo-text {
+  font-size: 20px;
+}
+
+/* ===== Navigation Links ===== */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 16px;
+}
+
+.nav-links a {
   position: relative;
   font-weight: 600;
   text-decoration: none;
@@ -28,12 +58,12 @@
 }
 
 /* Hover */
-.top-tabs a:hover {
+.nav-links a:hover {
   color: #0e695a;
 }
 
 /* Active underline (no layout shift) */
-.top-tabs a::after {
+.nav-links a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -47,24 +77,172 @@
 }
 
 /* Show underline on active */
-.top-tabs a.active::after {
+.nav-links a.active::after {
   transform: scaleX(1);
 }
 
 /* Active color */
-.top-tabs a.active {
+.nav-links a.active {
   color: #0e695a;
 }
 
-@media screen and (max-width: 750px) {
-  .top-tabs {
-    gap: 20px;
-    font-size: 16px;
+/* ===== Dropdown Menu Styles ===== */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Trigger style */
+.dropdown-trigger {
+  position: relative;
+  font-weight: 600;
+  color: #4b5563;
+  padding: 6px 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-size: 16px;
+  user-select: none;
+  display: inline-block;
+}
+
+.dropdown-trigger:hover {
+  color: #0e695a;
+}
+
+.dropdown-trigger .arrow {
+  font-size: 10px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* Underline decoration for dropdown trigger */
+.dropdown-trigger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background: #0e695a;
+  transform: scaleX(0);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Highlight "More" dropdown trigger when active or when subroutes are active */
+.dropdown-trigger.active::after {
+  transform: scaleX(1);
+}
+
+.dropdown-trigger.active {
+  color: #0e695a;
+}
+
+/* Dropdown Menu Box (aligned to the right of the parent trigger) */
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0; /* Aligns to right edge of parent container */
+  left: auto; /* Cancels centering */
+  transform: none; /* Cancels centering offset */
+  background-color: #ffffff;
+  min-width: 240px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(229, 229, 229, 0.8);
+  border-radius: 8px;
+  padding: 6px 0;
+  z-index: 1000;
+  margin-top: 12px; /* Visual gap below trigger */
+  animation: dropdownFadeIn 0.15s ease-out;
+}
+
+/* Invisible bridge to prevent mouseleave when cursor crosses the gap */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background: transparent;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media screen and (max-width: 550px) {
-  .top-tabs {
-    gap: 10px;
+/* Menu links */
+.dropdown-menu a {
+  padding: 10px 16px !important;
+  font-size: 14px !important;
+  text-align: left;
+  font-weight: 500 !important;
+  color: #4b5563 !important;
+  display: block;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f3f4f6;
+  color: #0e695a !important;
+}
+
+/* Remove active underline inside the dropdown box */
+.dropdown-menu a::after {
+  display: none !important;
+}
+
+.dropdown-menu a.active {
+  background-color: #e6f4f1;
+  color: #0e695a !important;
+}
+
+/* Mobile-only and Desktop-only Link Display Helpers */
+.show-only-on-mobile {
+  display: none !important;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .navbar-container {
+    padding: 0 16px;
+  }
+  .nav-logo .logo-text {
+    font-size: 16px; /* Scales down logo text on tablets */
+  }
+  .nav-links {
+    gap: 16px;
+    font-size: 14px;
+  }
+  .dropdown-trigger {
+    font-size: 14px;
+  }
+  .dropdown-menu {
+    min-width: 200px;
+  }
+  .hide-on-mobile {
+    display: none !important; /* Hide long text links on mobile viewport */
+  }
+  .show-only-on-mobile {
+    display: block !important; /* Render them in the mobile dropdown list instead */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .nav-logo .logo-text {
+    font-size: 15px; /* Muted smaller font size to easily fit with links on mobile */
+    display: block !important; /* Forces logo text to remain visible */
+  }
+  .nav-links {
+    gap: 12px;
   }
 }
