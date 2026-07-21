@@ -122,8 +122,8 @@ export default function SegmentTreeInterviewPage() {
           </p>
           <ul className="st-list">
             <li>This is an advanced range update problem that requires <strong>Lazy Propagation</strong>. See our <Link href="/lazy-propagation-in-segment-tree">Lazy propagation guide</Link>.</li>
-            <li>Because we have both "Add" and "Set" operations, our lazy nodes must store two separate flags: <code>lazyAdd</code> and <code>lazySet</code>.</li>
-            <li>When pushing a "Set" update downward, it overwrites any pending "Add" values on child nodes. When pushing an "Add" update, it accumulates onto existing pending updates.</li>
+            <li>Because we have both &quot;Add&quot; and &quot;Set&quot; operations, our lazy nodes must store two separate flags: <code>lazyAdd</code> and <code>lazySet</code>.</li>
+            <li>When pushing a &quot;Set&quot; update downward, it overwrites any pending &quot;Add&quot; values on child nodes. When pushing an &quot;Add&quot; update, it accumulates onto existing pending updates.</li>
           </ul>
 
           <h3>4. Circular RMQ (Codeforces 52C)</h3>

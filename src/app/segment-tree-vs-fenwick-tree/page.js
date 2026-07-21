@@ -85,7 +85,7 @@ public:
               In competitive programming and technical interviews, range query problems are highly common. Choosing between a <strong>Segment Tree</strong> and a <strong>Fenwick Tree (Binary Indexed Tree / BIT)</strong> can make the difference between an Accepted submission and a Time Limit Exceeded (TLE) or Memory Limit Exceeded (MLE) verdict.
             </p>
             <p className="st-text">
-              Let's break down their differences side-by-side to understand when to deploy each data structure.
+              Let&apos;s break down their differences side-by-side to understand when to deploy each data structure.
             </p>
           </div>
 
